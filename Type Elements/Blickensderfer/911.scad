@@ -41,7 +41,7 @@ CharLegend=[14,15,16,17,18,19,20,21,22,23,24,25,26,27,0,1,2,3,4,5,6,7,8,9,10,11,
 //Keyboard Layout: 0 - DHIATENSOR, 1 - QWERTY, 2 - USE CUSTOM
 Layout_Selection=0;//[0,1,2] 
 //Type Size
-Type_Size=3.3;//Comic Mono 3.1, Bonkersworking 2.6 , Consolas 3.3
+Type_Size=3.3;//[2:.05:5] Comic Mono 3.1, Bonkersworking 2.6 , Consolas 3.3
 Typeface_="Consolas";//exactly as shown installed in PC
 Layout=SELECTIONS[Layout_Selection];
 
@@ -225,62 +225,73 @@ module CleanupShape (SomeElement_Radius){
 module ResinPrintSupportShape (SomeResin_Support_Cut_Groove_Thickness, SomeResin_Support_Height, SomeResin_Support_Thickness,SomeElement_Radius,SomeResin_Support_Cut_Groove_Diameter,SomeCutout_Position_Radius){
     $fn=28*Element_Facet_Multiplier;
     rotate([180,0,0]){
-        union(){
-            difference(){
-                cylinder(h=SomeResin_Support_Height,r=SomeElement_Radius);
-                translate([0,0,-.001])
-                cylinder(h=SomeResin_Support_Height+.002,r=SomeElement_Radius-SomeResin_Support_Cut_Groove_Diameter/2-SomeResin_Support_Cut_Groove_Thickness);
+        difference(){
+            union(){
+                difference(){
+                    cylinder(h=SomeResin_Support_Height,r=SomeElement_Radius);
+                    translate([0,0,-.001])
+                    cylinder(h=SomeResin_Support_Height+.002,r=SomeElement_Radius-SomeResin_Support_Cut_Groove_Diameter/2-SomeResin_Support_Cut_Groove_Thickness);
+                    rotate_extrude(){
+                        translate([SomeElement_Radius,SomeResin_Support_Cut_Groove_Diameter/2])
+                        circle(r=SomeResin_Support_Cut_Groove_Diameter/2);
+                    }
+                }
                 rotate_extrude(){
-                    translate([SomeElement_Radius,SomeResin_Support_Cut_Groove_Diameter/2])
-                    circle(r=SomeResin_Support_Cut_Groove_Diameter/2);
+                    polygon([[SomeElement_Radius,SomeResin_Support_Height],[SomeElement_Radius-SomeResin_Support_Cut_Groove_Diameter/2-SomeResin_Support_Cut_Groove_Thickness-SomeResin_Support_Thickness,SomeResin_Support_Height],[SomeElement_Radius-SomeResin_Support_Cut_Groove_Diameter/2-SomeResin_Support_Cut_Groove_Thickness-SomeResin_Support_Thickness,SomeResin_Support_Height-SomeResin_Support_Thickness],[SomeElement_Radius+SomeResin_Support_Thickness,SomeResin_Support_Height-SomeResin_Support_Thickness]]);
                 }
-            }
-            rotate_extrude(){
-                polygon([[SomeElement_Radius,SomeResin_Support_Height],[SomeElement_Radius-SomeResin_Support_Cut_Groove_Diameter/2-SomeResin_Support_Cut_Groove_Thickness-SomeResin_Support_Thickness,SomeResin_Support_Height],[SomeElement_Radius-SomeResin_Support_Cut_Groove_Diameter/2-SomeResin_Support_Cut_Groove_Thickness-SomeResin_Support_Thickness,SomeResin_Support_Height-SomeResin_Support_Thickness],[SomeElement_Radius+SomeResin_Support_Thickness,SomeResin_Support_Height-SomeResin_Support_Thickness]]);
-            }
-            for (n=[0:1:5]){
-                translate([SomeCutout_Position_Radius*cos(60*n-30),SomeCutout_Position_Radius*sin(60*n-30),0]){
-                sphere(r=.3);
-                cylinder(h=1, r1=.3, r2=.6);
-                translate([0,0,1-.001])
-                cylinder(h=SomeResin_Support_Height-1,r=.6);
-                translate([0,0,SomeResin_Support_Height-SomeResin_Support_Thickness])
-                cylinder(h=SomeResin_Support_Thickness,r1=SomeResin_Support_Thickness+.6,r2=1.2);
-                }
-                for (m=[1:1:2]){
-                    z=sqrt(25.45^2-(SomeCutout_Position_Radius*m/3*cos(60*n-30))^2-(SomeCutout_Position_Radius*m/3*sin(60*n-30))^2)-25.45+2.5;
-                    translate([SomeCutout_Position_Radius*m/3*cos(60*n-30),SomeCutout_Position_Radius*m/3*sin(60*n-30),-z]){
+                for (n=[0:1:5]){
+                    translate([SomeCutout_Position_Radius*cos(60*n-30),SomeCutout_Position_Radius*sin(60*n-30),0]){
                     sphere(r=.3);
                     cylinder(h=1, r1=.3, r2=.6);
                     translate([0,0,1-.001])
                     cylinder(h=SomeResin_Support_Height-1,r=.6);
-                    translate([0,0,SomeResin_Support_Height-SomeResin_Support_Thickness+z])
+                    translate([0,0,SomeResin_Support_Height-SomeResin_Support_Thickness])
                     cylinder(h=SomeResin_Support_Thickness,r1=SomeResin_Support_Thickness+.6,r2=1.2);
+                    }
+                    for (m=[1:1:2]){
+                        z=sqrt(25.45^2-(SomeCutout_Position_Radius*m/3*cos(60*n-30))^2-(SomeCutout_Position_Radius*m/3*sin(60*n-30))^2)-25.45+2.5;
+                        translate([SomeCutout_Position_Radius*m/3*cos(60*n-30),SomeCutout_Position_Radius*m/3*sin(60*n-30),-z]){
+                        sphere(r=.3);
+                        cylinder(h=1, r1=.3, r2=.6);
+                        translate([0,0,1-.001])
+                        cylinder(h=SomeResin_Support_Height-1,r=.6);
+                        translate([0,0,SomeResin_Support_Height-SomeResin_Support_Thickness+z])
+                        cylinder(h=SomeResin_Support_Thickness,r1=SomeResin_Support_Thickness+.6,r2=1.2);
+                        }
                     }
                 }
             }
-        }
-    }
-}
-
-union(){//Joining Resin Support
-    difference(){//Cleaning up Top and Bottom of Cylinder
-        union(){//Union of Cylinder and Letters
-            for (row=[0:1:2]){
-                for (n=[0:1:CharRenderLim]){
-                    theta=-(360/28)*n-360/(28*2);
-                    PickedChar=CharLegend[n];
-                    LetterText(CharacterRadius,Element_Height,Baselines[row],BaselineOffsets[row],Typeface_,Type_Size,Layout[row][PickedChar],theta,Platen_Diameter,Final_Min_Character_Height_Radius,Debug_No_Minkowski);//Placing Letters
-                }
+            for (n=[0:1:3]){
+                theta=90*n;
+                radius=(SomeElement_Radius-SomeResin_Support_Cut_Groove_Diameter/2-SomeResin_Support_Cut_Groove_Thickness-SomeResin_Support_Thickness-.5);
+                translate([radius*cos(theta),radius*sin(theta),SomeResin_Support_Height])
+                rotate([0,90,90*n])
+                cylinder(h=5,r=1.5);
             }
-            Cylinder(Element_Radius,Element_Height,Clip_Diameter,Clip_Height,Shaft_Diameter,Cutout_Position_Radius,Element_Height,Cutout_Hole_Diameter,Shell_Thickness,Square_Slot_Support_Height,Square_Slot_Support_Radius,Element_Facet_Multiplier);//Placing Main Cylinder Body
         }
-    translate([0,0,Element_Height])
-    CleanupShape(Element_Radius);//Cleaning Top of Element
-    rotate([0,180,0])
-    CleanupShape(Element_Radius);//Cleaning Bottom of Element
     }
-    translate([0,0,e])
-    ResinPrintSupportShape(Resin_Support_Cut_Groove_Thickness,Resin_Support_Height,Resin_Support_Thickness,Element_Radius,Resin_Support_Cut_Groove_Diameter,Cutout_Position_Radius);//Placing Resin Support
 }
 
+difference(){//Cutting Vent Holes for Build Plate
+    union(){//Joining Resin Support
+        difference(){//Cleaning up Top and Bottom of Cylinder
+            union(){//Union of Cylinder and Letters
+                for (row=[0:1:2]){
+                    for (n=[0:1:CharRenderLim]){
+                        theta=-(360/28)*n-360/(28*2);
+                        PickedChar=CharLegend[n];
+                        LetterText(CharacterRadius,Element_Height,Baselines[row],BaselineOffsets[row],Typeface_,Type_Size,Layout[row][PickedChar],theta,Platen_Diameter,Final_Min_Character_Height_Radius,Debug_No_Minkowski);//Placing Letters
+                    }
+                }
+                Cylinder(Element_Radius,Element_Height,Clip_Diameter,Clip_Height,Shaft_Diameter,Cutout_Position_Radius,Element_Height,Cutout_Hole_Diameter,Shell_Thickness,Square_Slot_Support_Height,Square_Slot_Support_Radius,Element_Facet_Multiplier);//Placing Main Cylinder Body
+            }
+        translate([0,0,Element_Height])
+        CleanupShape(Element_Radius);//Cleaning Top of Element
+        rotate([0,180,0])
+        CleanupShape(Element_Radius);//Cleaning Bottom of Element
+        }
+        translate([0,0,e])
+        ResinPrintSupportShape(Resin_Support_Cut_Groove_Thickness,Resin_Support_Height,Resin_Support_Thickness,Element_Radius,Resin_Support_Cut_Groove_Diameter,Cutout_Position_Radius);//Placing Resin Support
+    }
+    
+}
