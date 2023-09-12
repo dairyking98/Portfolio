@@ -43,7 +43,6 @@ Layout_Selection=0;//[0,1,2]
 //Type Size
 Type_Size=3.3;//Comic Mono 3.1, Bonkersworking 2.6 , Consolas 3.3
 Typeface_="Consolas";//exactly as shown installed in PC
-//true - Speedy Preview/Render with no Draft Angles
 Layout=SELECTIONS[Layout_Selection];
 
 
