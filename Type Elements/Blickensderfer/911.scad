@@ -34,7 +34,6 @@ Custom_Lowercase="zxkg.pwfudhiatensorlcmy,bvqj";
 Custom_Uppercase="ZXKG.PWFUDHIATENSORLCMY&BVQJ";
 //Custom Figures Row - Put \ before "
 Custom_Figures="\"#$%_/-¢@;23456789:!^1.&'(0)";
-
 CUSTOM=[Custom_Lowercase,Custom_Uppercase,Custom_Figures];
 SELECTIONS=[DHIATENSOR,QWERTY,CUSTOM];
 CharLegend=[14,15,16,17,18,19,20,21,22,23,24,25,26,27,0,1,2,3,4,5,6,7,8,9,10,11,12,13];
@@ -164,7 +163,7 @@ module Cylinder (SomeElement_Radius,SomeElement_Height,SomeClip_Diameter,SomeCli
                 for (n = [0:1:5]){
                     translate([SomeCutout_Position_Radius*cos(60*n),SomeCutout_Position_Radius*sin(60*n),-e])
                     cylinder(h=SomeElement_Height/2, r=SomeCutout_Hole_Diameter/2);
-            }
+                }
                 //Hollow Out Main Body
                 rotate_extrude(){
                     polygon([[SomeClip_Diameter/2,3.6],[SomeClip_Diameter/2,SomeElement_Radius-SomeShell_Thickness],[SomeElement_Radius-SomeShell_Thickness,SomeElement_Height-SomeShell_Thickness],[SomeElement_Radius-SomeShell_Thickness,SomeShell_Thickness],[11.1,SomeShell_Thickness]]);
@@ -212,9 +211,6 @@ module LetterText (SomeCharacterRadius, SomeElement_Height, SomeBaseline, SomeBa
         if (SomeDebug != true)
             rotate([0,-90,+SomeTheta])
             cylinder(h=1,r2=.75,r1=0,$fn=6);
-            else
-            ;
-            
     }
 }
 
