@@ -1,1 +1,0 @@
-import{_ as e,o as c,c as s,a as o}from"./index-a8cbcdad.js";const t={},a=o("div",{class:"card"},"Projects!",-1),r=[a];function n(_,d){return c(),s("main",null,r)}const l=e(t,[["render",n]]);export{l as default};

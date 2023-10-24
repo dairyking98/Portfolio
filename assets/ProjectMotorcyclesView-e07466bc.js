@@ -1,1 +1,0 @@
-import{_ as e,o,c,a as t}from"./index-a8cbcdad.js";const s={},a=t("div",{class:"card"},"I love bikes more than maltomeal",-1),r=[a];function n(_,l){return o(),c("main",null,r)}const d=e(s,[["render",n]]);export{d as default};

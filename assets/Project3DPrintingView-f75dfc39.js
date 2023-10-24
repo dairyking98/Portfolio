@@ -1,1 +1,0 @@
-import{_ as e,o as s,c as t,a as c}from"./index-a8cbcdad.js";const n={},o=c("div",{class:"card"},"This is my 3d printing stuff bro",-1),r=[o];function a(i,_){return s(),t("main",null,r)}const f=e(n,[["render",a]]);export{f as default};
