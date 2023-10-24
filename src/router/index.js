@@ -1,5 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import ProjectsView from '../views/ProjectsView.vue'
+import ContactView from '../views/ContactView.vue'
+import Project3DPrintingView from '../views/Project3DPrintingView.vue'
+import ProjectPhotographyView from '../views/ProjectPhotographyView.vue'
+import ProjectMotorcyclesView from '../views/ProjectMotorcyclesView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,27 +17,27 @@ const router = createRouter({
     {
       path: '/projects',
       name: 'projects',
-      component: () => import('../views/ProjectsView.vue')
+      component: ProjectsView
     },
     {
       path: '/contact',
       name: 'contact',
-      component: () => import('../views/ContactView.vue')
+      component: ContactView
     },
     {
       path: '/projects/3dprinting',
       name: '3dprinting',
-      component: () => import('../views/Project3DPrintingView.vue')
+      component: Project3DPrintingView
     },
     {
       path: '/projects/photography',
       name: 'photography',
-      component: () => import('../views/ProjectPhotographyView.vue')
+      component: ProjectPhotographyView
     },
     {
       path: '/projects/motorcycles',
       name: 'motorcycles',
-      component: () => import('../views/ProjectMotorcyclesView.vue')
+      component: ProjectMotorcyclesView
     }
   ]
 })
