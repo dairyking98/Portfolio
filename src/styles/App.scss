@@ -11,7 +11,7 @@ $global-margin: 0;
 // Global
 @font-face {
   font-family: $main-font;
-  src: url('./assets/copypaste.ttf') format('truetype');
+  src: url('./assets/copypaste.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
@@ -21,6 +21,7 @@ $global-margin: 0;
   margin: $global-margin;
   padding: $global-padding;
   font-family: $main-font;
+  color: #333;
 }
 
 h2, h1 {
