@@ -1,0 +1,1 @@
+import{_ as e,o as c,c as t,a as o}from"./index-a8cbcdad.js";const a={},s=o("div",{class:"card"},"Contact me!",-1),n=[s];function r(_,d){return c(),t("main",null,n)}const l=e(a,[["render",r]]);export{l as default};

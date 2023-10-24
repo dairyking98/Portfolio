@@ -1,0 +1,1 @@
+import{_ as e,o as c,c as o,a as s}from"./index-a8cbcdad.js";const t={},a=s("div",{class:"card"},"These are my cool pics :D",-1),r=[a];function n(_,i){return c(),o("main",null,r)}const l=e(t,[["render",n]]);export{l as default};
