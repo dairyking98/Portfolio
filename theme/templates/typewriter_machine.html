@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} - {{ SITENAME }}{% endblock %}
+
+{% block content %}
+<article class="page typewriter-machine-page">
+    <div class="machine-header">
+        <a href="{{ SITEURL }}/typewriters/" class="back-link">← Back to Collection</a>
+        <h1>{{ page.title }}</h1>
+    </div>
+    
+    <div class="machine-details">
+        <div class="machine-specs">
+            <h2>Specifications</h2>
+            <dl class="spec-list">
+                {% if page.make %}
+                <dt>Make:</dt>
+                <dd>{{ page.make }}</dd>
+                {% endif %}
+                {% if page.model %}
+                <dt>Model:</dt>
+                <dd>{{ page.model }}</dd>
+                {% endif %}
+                {% if page.serial %}
+                <dt>Serial Number:</dt>
+                <dd>{{ page.serial }}</dd>
+                {% endif %}
+                {% if page.year %}
+                <dt>Year:</dt>
+                <dd>{{ page.year }}</dd>
+                {% endif %}
+                {% if page.size %}
+                <dt>Size:</dt>
+                <dd>{{ page.size }}</dd>
+                {% endif %}
+                {% if page.type %}
+                <dt>Type:</dt>
+                <dd>{{ page.type }}</dd>
+                {% endif %}
+                {% if page.pitch %}
+                <dt>Pitch:</dt>
+                <dd>{{ page.pitch }}</dd>
+                {% endif %}
+                {% if page.typeface %}
+                <dt>Typeface:</dt>
+                <dd>{{ page.typeface }}</dd>
+                {% endif %}
+                {% if page.layout %}
+                <dt>Layout:</dt>
+                <dd>{{ page.layout }}</dd>
+                {% endif %}
+                {% if page.color %}
+                <dt>Color:</dt>
+                <dd>{{ page.color }}</dd>
+                {% endif %}
+            </dl>
+        </div>
+        
+        {% if page.location %}
+        <div class="machine-location">
+            <h2>Location</h2>
+            <p>{{ page.location }}</p>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="machine-content">
+        {{ page.content }}
+    </div>
+    
+    {% if page.notes or page.work_needed %}
+    <div class="machine-notes">
+        {% if page.notes %}
+        <h2>Notes</h2>
+        <p>{{ page.notes }}</p>
+        {% endif %}
+        {% if page.work_needed %}
+        <h2>Work Needed</h2>
+        <p>{{ page.work_needed }}</p>
+        {% endif %}
+    </div>
+    {% endif %}
+</article>
+{% endblock %}
+

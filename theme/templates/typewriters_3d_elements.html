@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}3D Type Elements - {{ SITENAME }}{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/typewriters.css" />
+{% endblock %}
+
+{% block content %}
+<article class="page typewriters-page">
+    <div class="typewriters-intro">
+        <a href="{{ SITEURL }}/typewriters/" class="back-link">← Back to Typewriters</a>
+        <h1>3D Type Elements</h1>
+        <p>3D printing projects related to typewriters, with documentation and GitHub links for each sub-project.</p>
+    </div>
+    
+    {% set all_articles = articles %}
+    {% set has_type3d_posts = false %}
+    {% for article in all_articles %}
+        {% if article.category and article.category.name == "Typewriters" %}
+            {% if article.tags %}
+                {% for tag in article.tags %}
+                    {% if tag.name == "3d-type-elements" %}
+                        {% set has_type3d_posts = true %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    
+    {% if has_type3d_posts %}
+    <div class="posts-subsection">
+        <div class="posts-list">
+            {% for article in all_articles %}
+                {% if article.category and article.category.name == "Typewriters" %}
+                    {% if article.tags %}
+                        {% set is_type3d = false %}
+                        {% for tag in article.tags %}
+                            {% if tag.name == "3d-type-elements" %}
+                                {% set is_type3d = true %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if is_type3d %}
+                        <article class="post-preview">
+                            <h4><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h4>
+                            <div class="post-meta">
+                                <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
+                                {% if article.tags %}
+                                <span class="tags">
+                                    {% for tag in article.tags %}
+                                    <a href="{{ SITEURL }}/{{ tag.url }}" class="tag">{{ tag.name }}</a>
+                                    {% endfor %}
+                                </span>
+                                {% endif %}
+                            </div>
+                            {% if article.summary %}
+                            <p class="post-summary">{{ article.summary }}</p>
+                            {% endif %}
+                            <a href="{{ SITEURL }}/{{ article.url }}" class="read-more">Read more →</a>
+                        </article>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <p>No 3D Type Elements posts yet. Check back soon!</p>
+    {% endif %}
+</article>
+{% endblock %}
+

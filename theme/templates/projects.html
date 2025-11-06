@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} - {{ SITENAME }}{% endblock %}
+
+{% block content %}
+<article class="page projects-page">
+    <h1>{{ page.title }}</h1>
+    <div class="page-content">
+        {{ page.content }}
+    </div>
+    
+    {% set all_articles = articles %}
+    
+    <!-- Cool Stuff Section -->
+    <section class="project-section" id="cool-stuff">
+        {% set has_cool_posts = false %}
+        {% for article in all_articles %}
+            {% if article.category and article.category.name == "Cool Stuff" %}
+                {% set has_cool_posts = true %}
+            {% endif %}
+        {% endfor %}
+        {% if has_cool_posts %}
+        <div class="posts-list">
+            {% for article in all_articles %}
+                {% if article.category and article.category.name == "Cool Stuff" %}
+                <article class="post-preview">
+                    <h3><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
+                    <div class="post-meta">
+                        <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
+                        {% if article.tags %}
+                        <span class="tags">
+                            {% for tag in article.tags %}
+                            <a href="{{ SITEURL }}/{{ tag.url }}" class="tag">{{ tag.name }}</a>
+                            {% endfor %}
+                        </span>
+                        {% endif %}
+                    </div>
+                    {% if article.summary %}
+                    <p class="post-summary">{{ article.summary }}</p>
+                    {% endif %}
+                    <a href="{{ SITEURL }}/{{ article.url }}" class="read-more">Read more →</a>
+                </article>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No cool stuff posts yet. Check back soon!</p>
+        {% endif %}
+    </section>
+</article>
+{% endblock %}

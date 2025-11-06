@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Collection Posts - {{ SITENAME }}{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/typewriters.css" />
+{% endblock %}
+
+{% block content %}
+<article class="page typewriters-page">
+    <div class="typewriters-intro">
+        <a href="{{ SITEURL }}/typewriters/" class="back-link">← Back to Typewriters</a>
+        <h1>Collection Posts</h1>
+        <p>Machine pages and posts about my typewriter collection.</p>
+    </div>
+    
+    {% set all_articles = articles %}
+    
+    {# Build list of machine pages #}
+    {% set machine_pages_list = [] %}
+    {% for page in pages %}
+        {% if page.category and page.category.name == "machine" %}
+            {% set _ = machine_pages_list.append(page) %}
+        {% endif %}
+    {% endfor %}
+    
+    {# Check for articles with my-collection tag #}
+    {% set has_collection_posts = false %}
+    {% for article in all_articles %}
+        {% if article.category and article.category.name == "Typewriters" %}
+            {% if article.tags %}
+                {% for tag in article.tags %}
+                    {% if tag.name == "my-collection" %}
+                        {% set has_collection_posts = true %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    
+    {% if machine_pages_list or has_collection_posts %}
+    <div class="collection-posts">
+        <div class="posts-list">
+            {# Show machine pages first, sorted newest first #}
+            {% for page in machine_pages_list|sort(attribute='date')|reverse %}
+            <article class="post-preview">
+                <h4><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></h4>
+                <div class="post-meta">
+                    {% if page.date %}
+                    <time datetime="{{ page.date.isoformat() }}">{{ page.locale_date }}</time>
+                    {% endif %}
+                    {% if page.make and page.model %}
+                    <span class="tags">
+                        <span class="tag">{{ page.make }} {{ page.model }}{% if page.serial %} - Serial {{ page.serial }}{% endif %}</span>
+                    </span>
+                    {% endif %}
+                </div>
+                {% if page.summary %}
+                <p class="post-summary">{{ page.summary }}</p>
+                {% endif %}
+                <a href="{{ SITEURL }}/{{ page.url }}" class="read-more">View machine page →</a>
+            </article>
+            {% endfor %}
+            
+            {# Show articles with my-collection tag #}
+            {% for article in all_articles %}
+                {% if article.category and article.category.name == "Typewriters" %}
+                    {% if article.tags %}
+                        {% set is_collection = false %}
+                        {% for tag in article.tags %}
+                            {% if tag.name == "my-collection" %}
+                                {% set is_collection = true %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if is_collection %}
+                        <article class="post-preview">
+                            <h4><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h4>
+                            <div class="post-meta">
+                                <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
+                                {% if article.tags %}
+                                <span class="tags">
+                                    {% for tag in article.tags %}
+                                    <a href="{{ SITEURL }}/{{ tag.url }}" class="tag">{{ tag.name }}</a>
+                                    {% endfor %}
+                                </span>
+                                {% endif %}
+                            </div>
+                            {% if article.summary %}
+                            <p class="post-summary">{{ article.summary }}</p>
+                            {% endif %}
+                            <a href="{{ SITEURL }}/{{ article.url }}" class="read-more">Read more →</a>
+                        </article>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <p>No collection posts yet. Check back soon!</p>
+    {% endif %}
+</article>
+{% endblock %}
+

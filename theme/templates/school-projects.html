@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} - {{ SITENAME }}{% endblock %}
+
+{% block content %}
+<article class="page projects-page">
+    <h1>{{ page.title }}</h1>
+    <div class="page-content">
+        {{ page.content }}
+    </div>
+    
+    {% set all_articles = articles %}
+    
+    <!-- School Projects Section -->
+    <section class="project-section" id="school-projects">
+        {% set has_school_posts = false %}
+        {% for article in all_articles %}
+            {% if article.category and article.category.name == "School Projects" %}
+                {% set has_school_posts = true %}
+            {% endif %}
+        {% endfor %}
+        {% if has_school_posts %}
+        <div class="posts-list">
+            {% for article in all_articles %}
+                {% if article.category and article.category.name == "School Projects" %}
+                <article class="post-preview">
+                    <h3><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
+                    <div class="post-meta">
+                        <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
+                        {% if article.tags %}
+                        <span class="tags">
+                            {% for tag in article.tags %}
+                            <a href="{{ SITEURL }}/{{ tag.url }}" class="tag">{{ tag.name }}</a>
+                            {% endfor %}
+                        </span>
+                        {% endif %}
+                    </div>
+                    {% if article.summary %}
+                    <p class="post-summary">{{ article.summary }}</p>
+                    {% endif %}
+                    <a href="{{ SITEURL }}/{{ article.url }}" class="read-more">Read more →</a>
+                </article>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No school project posts yet. Check back soon!</p>
+        {% endif %}
+    </section>
+</article>
+{% endblock %}
+

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Archives - {{ SITENAME }}{% endblock %}
+
+{% block content %}
+<section class="archives-page">
+    <h1>Archives</h1>
+    
+    {% if dates %}
+    <div class="archives-list">
+        {% for article in dates %}
+        <article class="archive-item">
+            <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
+            <h3><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
+            {% if article.tags %}
+            <span class="tags">
+                {% for tag in article.tags %}
+                <a href="{{ SITEURL }}/{{ tag.url }}" class="tag">{{ tag.name }}</a>
+                {% endfor %}
+            </span>
+            {% endif %}
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No archived posts yet.</p>
+    {% endif %}
+</section>
+{% endblock %}
+
