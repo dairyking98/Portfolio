@@ -3,6 +3,7 @@ Date: 2025-02-10
 Category: machine
 template: typewriter_machine
 Save_as: typewriters/harris-visible-no-4-19149/index.html
+URL: typewriters/harris-visible-no-4-19149/
 
 make: Harris
 model: Visible no. 4

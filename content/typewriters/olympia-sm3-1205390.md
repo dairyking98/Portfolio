@@ -3,6 +3,7 @@ Date: 2025-02-10
 Category: machine
 template: typewriter_machine
 Save_as: typewriters/olympia-sm3-1205390/index.html
+URL: typewriters/olympia-sm3-1205390/
 
 make: Olympia
 model: Sm3

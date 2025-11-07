@@ -3,6 +3,7 @@ Date: 2025-02-10
 Category: machine
 template: typewriter_machine
 Save_as: typewriters/underwood-champion-typemaster-g1130193/index.html
+URL: typewriters/underwood-champion-typemaster-g1130193/
 
 make: Underwood
 model: Champion Typemaster

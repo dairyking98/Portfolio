@@ -17,12 +17,15 @@ def slugify(text):
     return re.sub(r'[^\w\s-]', '', text_str.lower()).strip().replace(' ', '-').replace('_', '-')
 
 def generate_machine_page(tw, output_dir):
-    """Generate a machine page file if it doesn't exist."""
+    """Generate a machine page file if it doesn't exist.
+    Requires make, model, and serial number. Pages without serial numbers
+    are handled by the Pelican plugin based on CSV data.
+    """
     make = tw.get('Typewriter Brand', '')
     model = tw.get('Model', '')
     serial = tw.get('Serial No', '')
     
-    # Only generate if all three exist
+    # Only generate if all three exist (serial is required - no serial means no page)
     if not make or not model or not serial or pd.isna(make) or pd.isna(model) or pd.isna(serial):
         return None
     
@@ -50,6 +53,7 @@ def generate_machine_page(tw, output_dir):
     metadata_lines.append("Category: machine")
     metadata_lines.append("template: typewriter_machine")
     metadata_lines.append(f"Save_as: typewriters/{make_slug}-{model_slug}-{serial_slug}/index.html")
+    metadata_lines.append(f"URL: typewriters/{make_slug}-{model_slug}-{serial_slug}/")
     metadata_lines.append("")
     
     # Add custom metadata

@@ -3,6 +3,7 @@ Date: 2025-02-10
 Category: machine
 template: typewriter_machine
 Save_as: typewriters/junior-spain-model-58-c2492/index.html
+URL: typewriters/junior-spain-model-58-c2492/
 
 make: Junior (Spain)
 model: Model 58

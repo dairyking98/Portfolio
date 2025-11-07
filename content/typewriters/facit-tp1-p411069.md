@@ -3,6 +3,7 @@ Date: 2025-02-10
 Category: machine
 template: typewriter_machine
 Save_as: typewriters/facit-tp1-p411069/index.html
+URL: typewriters/facit-tp1-p411069/
 
 make: Facit
 model: Tp1

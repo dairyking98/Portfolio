@@ -3,6 +3,7 @@ Date: 2025-02-10
 Category: machine
 template: typewriter_machine
 Save_as: typewriters/underwood-no-3-206803/index.html
+URL: typewriters/underwood-no-3-206803/
 
 make: Underwood
 model: No. 3

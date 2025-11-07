@@ -80,12 +80,13 @@ function slugify(text) {
 }
 
 // Generate machine page link
+// Only generates links for machines with serial numbers (pages without serials are handled by plugin)
 function generateMachineLink(tw) {
     const make = tw['Typewriter Brand'];
     const model = tw['Model'];
     const serial = tw['Serial No'];
     
-    // Only generate link if all three fields exist
+    // Only generate link if make, model, and serial exist (serial is required)
     if (!make || !model || !serial) {
         return null;
     }

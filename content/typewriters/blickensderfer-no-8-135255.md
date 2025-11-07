@@ -3,6 +3,7 @@ Date: 2025-02-10
 Category: machine
 template: typewriter_machine
 Save_as: typewriters/blickensderfer-no-8-135255/index.html
+URL: typewriters/blickensderfer-no-8-135255/
 
 make: Blickensderfer
 model: No. 8

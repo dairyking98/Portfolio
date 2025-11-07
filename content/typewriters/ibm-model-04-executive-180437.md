@@ -3,6 +3,7 @@ Date: 2025-02-10
 Category: machine
 template: typewriter_machine
 Save_as: typewriters/ibm-model-04-executive-180437/index.html
+URL: typewriters/ibm-model-04-executive-180437/
 
 make: IBM
 model: Model 04 Executive

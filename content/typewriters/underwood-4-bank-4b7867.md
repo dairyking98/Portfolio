@@ -3,6 +3,7 @@ Date: 2025-02-10
 Category: machine
 template: typewriter_machine
 Save_as: typewriters/underwood-4-bank-4b7867/index.html
+URL: typewriters/underwood-4-bank-4b7867/
 
 make: Underwood
 model: 4 Bank

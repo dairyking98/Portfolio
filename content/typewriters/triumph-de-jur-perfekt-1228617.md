@@ -3,6 +3,7 @@ Date: 2025-02-10
 Category: machine
 template: typewriter_machine
 Save_as: typewriters/triumph-de-jur-perfekt-1228617/index.html
+URL: typewriters/triumph-de-jur-perfekt-1228617/
 
 make: Triumph
 model: De Jur Perfekt

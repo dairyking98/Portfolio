@@ -7,3 +7,4 @@ Save_as: school-projects/index.html
 
 Academic projects and coursework from my studies.
 
+

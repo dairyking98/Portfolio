@@ -3,6 +3,7 @@ Date: 2025-02-10
 Category: machine
 template: typewriter_machine
 Save_as: typewriters/woodstock-model-5n-n168116e/index.html
+URL: typewriters/woodstock-model-5n-n168116e/
 
 make: Woodstock
 model: Model 5N

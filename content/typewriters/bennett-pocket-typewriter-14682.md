@@ -3,6 +3,7 @@ Date: 2025-02-10
 Category: machine
 template: typewriter_machine
 Save_as: typewriters/bennett-pocket-typewriter-14682/index.html
+URL: typewriters/bennett-pocket-typewriter-14682/
 
 make: Bennett
 model: Pocket Typewriter

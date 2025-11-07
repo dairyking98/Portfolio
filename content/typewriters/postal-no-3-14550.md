@@ -3,6 +3,7 @@ Date: 2025-02-10
 Category: machine
 template: typewriter_machine
 Save_as: typewriters/postal-no-3-14550/index.html
+URL: typewriters/postal-no-3-14550/
 
 make: Postal
 model: No. 3

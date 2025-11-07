@@ -3,6 +3,7 @@ Date: 2025-02-10
 Category: machine
 template: typewriter_machine
 Save_as: typewriters/hammond-model-1-15058/index.html
+URL: typewriters/hammond-model-1-15058/
 
 make: Hammond
 model: Model 1

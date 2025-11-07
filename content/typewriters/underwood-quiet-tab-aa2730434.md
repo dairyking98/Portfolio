@@ -3,6 +3,7 @@ Date: 2025-02-10
 Category: machine
 template: typewriter_machine
 Save_as: typewriters/underwood-quiet-tab-aa2730434/index.html
+URL: typewriters/underwood-quiet-tab-aa2730434/
 
 make: Underwood
 model: Quiet Tab

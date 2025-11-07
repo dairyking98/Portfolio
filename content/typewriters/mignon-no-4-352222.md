@@ -3,6 +3,7 @@ Date: 2025-02-10
 Category: machine
 template: typewriter_machine
 Save_as: typewriters/mignon-no-4-352222/index.html
+URL: typewriters/mignon-no-4-352222/
 
 make: Mignon
 model: No. 4

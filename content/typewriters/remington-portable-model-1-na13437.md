@@ -3,6 +3,7 @@ Date: 2025-02-10
 Category: machine
 template: typewriter_machine
 Save_as: typewriters/remington-portable-model-1-na13437/index.html
+URL: typewriters/remington-portable-model-1-na13437/
 
 make: Remington
 model: Portable Model 1

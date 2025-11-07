@@ -3,6 +3,7 @@ Date: 2025-02-10
 Category: machine
 template: typewriter_machine
 Save_as: typewriters/olympia-sg1-7-487163/index.html
+URL: typewriters/olympia-sg1-7-487163/
 
 make: Olympia
 model: Sg1

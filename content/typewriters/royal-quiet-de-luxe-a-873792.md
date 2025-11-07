@@ -3,6 +3,7 @@ Date: 2025-02-10
 Category: machine
 template: typewriter_machine
 Save_as: typewriters/royal-quiet-de-luxe-a-873792/index.html
+URL: typewriters/royal-quiet-de-luxe-a-873792/
 
 make: Royal
 model: Quiet De Luxe
