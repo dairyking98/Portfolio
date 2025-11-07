@@ -67,7 +67,32 @@ def process_typewriters(sender):
         print(f"[WARNING] Could not process typewriters.csv: {e}")
 
 
+def cache_articles_and_tags(article_generator):
+    """After articles are finalized, cache articles and tags into settings."""
+    settings = article_generator.settings
+    settings['ALL_ARTICLES'] = list(article_generator.articles)
+    settings['ALL_TAGS'] = article_generator.tags
+    print(f"[OK] Cached {len(settings['ALL_ARTICLES'])} articles and tags for page templates")
+
+
+def inject_into_page_context(page_generator, metadata):
+    """Ensure page templates receive ALL_ARTICLES and ALL_TAGS in context."""
+    settings = page_generator.settings
+    ctx = page_generator.context
+    if 'articles' not in ctx and 'ALL_ARTICLES' in settings:
+        ctx['articles'] = settings['ALL_ARTICLES']
+    if 'tags' not in ctx and 'ALL_TAGS' in settings:
+        ctx['tags'] = settings['ALL_TAGS']
+
+
+# (No per-content attachment needed with the context injection above)
+
+
 def register():
     """Register the plugin with Pelican."""
     signals.initialized.connect(process_typewriters)
+    # After articles are generated, cache lists into settings
+    signals.article_generator_finalized.connect(cache_articles_and_tags)
+    # Inject cached values into page template context
+    signals.page_generator_context.connect(inject_into_page_context)
 

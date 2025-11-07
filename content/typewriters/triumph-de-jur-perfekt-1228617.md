@@ -1,6 +1,5 @@
 Title: Triumph De Jur Perfekt - Serial 1228617
 Date: 2025-02-10
-Category: machine
 template: typewriter_machine
 Save_as: typewriters/triumph-de-jur-perfekt-1228617/index.html
 URL: typewriters/triumph-de-jur-perfekt-1228617/
@@ -15,8 +14,6 @@ pitch: 11.0
 typeface: Standard
 color: Tan
 location: San Francisco
-
-# Triumph De Jur Perfekt - Serial 1228617
 
 ## Overview
 

@@ -1,6 +1,5 @@
 Title: Underwood 4 Bank - Serial 4B7867
 Date: 2025-02-10
-Category: machine
 template: typewriter_machine
 Save_as: typewriters/underwood-4-bank-4b7867/index.html
 URL: typewriters/underwood-4-bank-4b7867/
@@ -16,8 +15,6 @@ typeface: Standard
 color: Black
 location: San Francisco
 notes: -getting 3d slug swapped, owned by Leaf
-
-# Underwood 4 Bank - Serial 4B7867
 
 ## Overview
 

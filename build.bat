@@ -33,8 +33,12 @@ if errorlevel 1 (
     )
 )
 
-REM Run the build script with all arguments passed through
-python build.py %*
+REM Run the build script in interactive mode (or with arguments if provided)
+if "%1"=="" (
+    python build.py
+) else (
+    python build.py %*
+)
 
 endlocal
 

@@ -1,8 +1,6 @@
 Title: About
 Date: 2025-02-10
 
-# About
-
 Hi, I'm **Leonard Chau**—a mechanical engineer, maker, and researcher from the San Francisco Bay Area. I specialize in building practical, low-cost scientific instruments that combine mechanical design, optics, electronics, automation, and software. I love working at the intersection of old and new technology: restoring typewriters and film equipment, welding and machining metal assemblies, and designing intelligent robotic systems powered by modern software and AI.
 
 ## Education & Background

@@ -1,6 +1,5 @@
 Title: Mignon No. 4 - Serial 352222
 Date: 2025-02-10
-Category: machine
 template: typewriter_machine
 Save_as: typewriters/mignon-no-4-352222/index.html
 URL: typewriters/mignon-no-4-352222/
@@ -16,8 +15,6 @@ typeface: *
 layout: Index
 color: Black
 location: San Francisco
-
-# Mignon No. 4 - Serial 352222
 
 ## Overview
 

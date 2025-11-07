@@ -1,6 +1,5 @@
 Title: Hammond Model 1 - Serial 15058
 Date: 2025-02-10
-Category: machine
 template: typewriter_machine
 Save_as: typewriters/hammond-model-1-15058/index.html
 URL: typewriters/hammond-model-1-15058/
@@ -14,8 +13,6 @@ type: Manual
 typeface: *
 layout: QWERTY
 location: San Francisco
-
-# Hammond Model 1 - Serial 15058
 
 ## Overview
 

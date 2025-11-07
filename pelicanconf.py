@@ -16,7 +16,7 @@ SITEDESCRIPTION = 'Personal portfolio and engineering blog'
 PATH = 'content'
 ARTICLE_PATHS = ['posts']  # Only files in posts/ are articles
 PAGE_PATHS = ['', 'typewriters']  # Files in content root and typewriters/ are pages
-STATIC_PATHS = ['images', 'extra']
+STATIC_PATHS = ['images', 'extra', 'documents']
 EXTRA_PATH_METADATA = {
     'extra/favicon.ico': {'path': 'favicon.ico'},
     'extra/typewriters.json': {'path': 'typewriters.json'},

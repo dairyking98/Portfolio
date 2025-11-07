@@ -1,6 +1,5 @@
 Title: Harris Visible no. 4 - Serial 19149
 Date: 2025-02-10
-Category: machine
 template: typewriter_machine
 Save_as: typewriters/harris-visible-no-4-19149/index.html
 URL: typewriters/harris-visible-no-4-19149/
@@ -18,8 +17,6 @@ color: Black
 location: Tracy
 notes: -fix drawband and drawband hook
 work_needed: fabricate and install flatter drawband to old hook
-
-# Harris Visible no. 4 - Serial 19149
 
 ## Overview
 

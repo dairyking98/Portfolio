@@ -1,6 +1,5 @@
 Title: Facit Tp1 - Serial P411069
 Date: 2025-02-10
-Category: machine
 template: typewriter_machine
 Save_as: typewriters/facit-tp1-p411069/index.html
 URL: typewriters/facit-tp1-p411069/
@@ -15,8 +14,6 @@ pitch: 10.0
 typeface: Imperial
 color: Gray
 location: Tracy
-
-# Facit Tp1 - Serial P411069
 
 ## Overview
 

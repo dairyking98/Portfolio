@@ -1,6 +1,5 @@
 Title: Woodstock Model 5N - Serial N168116E
 Date: 2025-02-10
-Category: machine
 template: typewriter_machine
 Save_as: typewriters/woodstock-model-5n-n168116e/index.html
 URL: typewriters/woodstock-model-5n-n168116e/
@@ -15,8 +14,6 @@ pitch: 12.0
 typeface: Standard
 color: Black
 location: Tracy
-
-# Woodstock Model 5N - Serial N168116E
 
 ## Overview
 

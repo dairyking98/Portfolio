@@ -1,6 +1,5 @@
 Title: Royal Quiet De Luxe - Serial A-873792
 Date: 2025-02-10
-Category: machine
 template: typewriter_machine
 Save_as: typewriters/royal-quiet-de-luxe-a-873792/index.html
 URL: typewriters/royal-quiet-de-luxe-a-873792/
@@ -15,8 +14,6 @@ pitch: 10.0
 typeface: Royal Vogue
 color: Black
 location: San Francisco
-
-# Royal Quiet De Luxe - Serial A-873792
 
 ## Overview
 

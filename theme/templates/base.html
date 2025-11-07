@@ -21,7 +21,10 @@
         <div class="container">
             <nav class="main-nav">
                 <a href="{{ SITEURL }}/" class="logo">{{ SITENAME }}</a>
-                <ul class="nav-links">
+                <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    ☰ Menu
+                </button>
+                <ul class="nav-links" id="primary-nav">
                     {% for title, link in MENUITEMS %}
                     {% if title == 'Typewriters' %}
                     <li class="nav-dropdown">
@@ -61,6 +64,7 @@
         </div>
     </footer>
 
+    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/main.js"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>

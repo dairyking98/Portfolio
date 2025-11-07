@@ -1,6 +1,5 @@
 Title: Hammond Multiplex - Serial 224478
 Date: 2025-02-10
-Category: machine
 template: typewriter_machine
 Save_as: typewriters/hammond-multiplex-224478/index.html
 URL: typewriters/hammond-multiplex-224478/
@@ -15,8 +14,6 @@ pitch: 10.0
 typeface: Standard
 color: Black
 location: San Francisco
-
-# Hammond Multiplex - Serial 224478
 
 ## Overview
 

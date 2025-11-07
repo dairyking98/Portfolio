@@ -3,8 +3,6 @@ Date: 2025-02-10
 template: projects
 Save_as: projects/index.html
 
-# Projects
-
 This page showcases miscellaneous projects and experiments that don't fit into the main categories.
 
 ## Cool Stuff

@@ -1,6 +1,5 @@
 Title: Royal De Luxe - Serial A597665
 Date: 2025-02-10
-Category: machine
 template: typewriter_machine
 Save_as: typewriters/royal-de-luxe-a597665/index.html
 URL: typewriters/royal-de-luxe-a597665/
@@ -16,8 +15,6 @@ typeface: Italic
 color: Black
 location: San Francisco
 notes: -cleaning and service, -backspace sticking
-
-# Royal De Luxe - Serial A597665
 
 ## Overview
 

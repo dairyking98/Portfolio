@@ -58,190 +58,190 @@ def build_site(production=False):
     return True
 
 
-def serve_site(port=8000, production=False):
-    """Serve the site locally for preview with interactive rebuild support."""
+def serve_site(port=8000, production=False, interactive_mode=False, quit_event=None, listen=False):
+    """Serve the site locally with a clean Ctrl+C exit.
+
+    Note: listen is ignored in this implementation to preserve reliable stop behavior.
+    """
     output_path = Path('output')
     if not output_path.exists():
         print("✗ Output directory not found. Building site first...")
         if not build_site(production=production):
             return False
-    
+
     print(f"\n{'='*60}")
     print(f"Serving site at http://localhost:{port}")
-    if sys.platform == 'win32':
-        print(f"Press 'r' (or 'r' + Enter) to rebuild and restart")
-    else:
-        print(f"Press 'r' + Enter to rebuild and restart")
-    print(f"Press Ctrl+C to stop the server")
+    if listen:
+        print("(Auto-rebuild disabled temporarily; press Ctrl+C to stop, then rebuild)")
+    print("Press Ctrl+C to stop the server")
+    if interactive_mode:
+        print("(Returning to menu after stop)")
     print(f"{'='*60}\n")
-    
+
     import http.server
     import socketserver
-    
-    httpd = None
-    server_thread = None
-    should_stop = threading.Event()
-    rebuild_requested = threading.Event()
-    
-    def run_server():
-        """Run the HTTP server in a separate thread."""
-        nonlocal httpd
+    import socket
+
+    original_dir = os.getcwd()
+
+    # Helper: directory snapshot for polling
+    def get_primary_ip():
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         try:
-            original_dir = os.getcwd()
+            s.connect(('8.8.8.8', 80))
+            return s.getsockname()[0]
+        except Exception:
+            return '127.0.0.1'
+        finally:
+            try:
+                s.close()
+            except Exception:
+                pass
+
+    lan_ip = get_primary_ip()
+    def snapshot_content_dir() -> dict:
+        content_root = Path('content')
+        file_to_mtime = {}
+        if not content_root.exists():
+            return file_to_mtime
+        for root, dirs, files in os.walk(content_root):
+            dirs[:] = [d for d in dirs if not d.startswith('.') and d not in ['__pycache__', 'node_modules']]
+            for name in files:
+                if name.startswith('.') or name.endswith('.pyc'):
+                    continue
+                p = Path(root) / name
+                try:
+                    file_to_mtime[p] = p.stat().st_mtime
+                except (OSError, FileNotFoundError):
+                    pass
+        return file_to_mtime
+
+    # If not listening, run the simple, robust server once
+    if not listen:
+        try:
             os.chdir('output')
             handler = http.server.SimpleHTTPRequestHandler
-            httpd = socketserver.TCPServer(("", port), handler)
-            httpd.timeout = 1  # Allow periodic checks for shutdown
-            print(f"Server started at http://localhost:{port}\n")
-            
-            while not should_stop.is_set():
-                httpd.handle_request()
-            
-            httpd.server_close()
-            os.chdir(original_dir)
+            httpd = socketserver.TCPServer(("0.0.0.0", port), handler)
+            print("Server running...\n")
+            print(f"  Local  : http://127.0.0.1:{port}")
+            print(f"  Network: http://{lan_ip}:{port}\n")
+
+            try:
+                httpd.serve_forever()
+            except KeyboardInterrupt:
+                print("\n✓ Stopping server...")
+            finally:
+                try:
+                    httpd.shutdown()
+                except Exception:
+                    pass
+                try:
+                    httpd.server_close()
+                except Exception:
+                    pass
+                os.chdir(original_dir)
+                print("✓ Server stopped cleanly")
+
+            return True
+
         except OSError as e:
+            os.chdir(original_dir)
             if e.errno == 98 or e.errno == 48:  # Address already in use
                 print(f"✗ Port {port} is already in use. Try a different port:")
                 print(f"  python build.py serve --port {port + 1}")
             else:
-                print(f"✗ Error starting server: {e}")
-            should_stop.set()
-        except Exception as e:
-            print(f"✗ Server error: {e}")
-            should_stop.set()
-    
-    def input_handler():
-        """Handle user input in a separate thread."""
-        while not should_stop.is_set():
-            try:
-                # On Windows, use non-blocking key detection
-                if sys.platform == 'win32':
-                    try:
-                        import msvcrt
-                        if msvcrt.kbhit():
-                            key = msvcrt.getch()
-                            try:
-                                if isinstance(key, bytes):
-                                    key = key.decode('utf-8', errors='ignore')
-                                key = key.lower()
-                                if key == 'r':
-                                    rebuild_requested.set()
-                                    # Consume any remaining buffered input
-                                    while msvcrt.kbhit():
-                                        msvcrt.getch()
-                            except (UnicodeDecodeError, AttributeError):
-                                pass
-                    except ImportError:
-                        # Fallback: use blocking input (requires Enter)
-                        try:
-                            user_input = input().strip().lower()
-                            if user_input == 'r':
-                                rebuild_requested.set()
-                        except (EOFError, KeyboardInterrupt):
-                            should_stop.set()
-                            break
-                else:
-                    # Unix-like: use select for non-blocking input check
-                    try:
-                        import select
-                        if select.select([sys.stdin], [], [], 0.1)[0]:
-                            user_input = sys.stdin.readline().strip().lower()
-                            if user_input == 'r':
-                                rebuild_requested.set()
-                    except (ImportError, OSError):
-                        # Fallback: use blocking input
-                        try:
-                            user_input = input().strip().lower()
-                            if user_input == 'r':
-                                rebuild_requested.set()
-                        except (EOFError, KeyboardInterrupt):
-                            should_stop.set()
-                            break
-            except Exception:
-                pass
-            time.sleep(0.1)
-    
-    try:
-        # Start server in a daemon thread
-        server_thread = threading.Thread(target=run_server, daemon=True)
-        server_thread.start()
-        
-        # Start input handler in a separate thread
-        input_thread = threading.Thread(target=input_handler, daemon=True)
-        input_thread.start()
-        
-        # Wait a moment for server to start
-        time.sleep(0.5)
-        
-        if should_stop.is_set():
+                print(f"✗ Error: {e}")
             return False
-        
-        # Main loop: check for rebuild requests
+        except Exception as e:
+            os.chdir(original_dir)
+            print(f"✗ Error: {e}")
+            return False
+
+    # Listen mode: poll for changes in a background thread and restart cleanly
+    try:
+        prev_snapshot = snapshot_content_dir()
         while True:
+            restart_requested = threading.Event()
+
+            # Start HTTP server
+            os.chdir('output')
+            handler = http.server.SimpleHTTPRequestHandler
+            httpd = socketserver.TCPServer(("0.0.0.0", port), handler)
+            print("Server running (listening for changes)...\n")
+            print(f"  Local  : http://127.0.0.1:{port}")
+            print(f"  Network: http://{lan_ip}:{port}\n")
+
+            # Watcher thread (daemon), polling without touching stdin
+            def watcher():
+                nonlocal prev_snapshot
+                try:
+                    while True:
+                        time.sleep(1.0)
+                        new_snapshot = snapshot_content_dir()
+                        if new_snapshot != prev_snapshot:
+                            print("\n🔄 Change detected in content. Scheduling rebuild...")
+                            prev_snapshot = new_snapshot
+                            restart_requested.set()
+                            try:
+                                httpd.shutdown()  # Thread-safe; wakes serve_forever
+                            except Exception:
+                                pass
+                            break
+                except Exception:
+                    # Silent watcher errors
+                    pass
+
+            t = threading.Thread(target=watcher, daemon=True)
+            t.start()
+
             try:
-                # Check if server thread is still alive
-                if not server_thread.is_alive():
-                    break
-                
-                # Check if rebuild was requested
-                if rebuild_requested.is_set():
-                    rebuild_requested.clear()
-                    print("\n\n🔄 Rebuilding site...")
-                    
-                    # Stop the server
-                    should_stop.set()
-                    if httpd:
-                        try:
-                            httpd.shutdown()
-                        except:
-                            pass
-                    server_thread.join(timeout=2)
-                    
-                    # Rebuild
-                    if rebuild_site(production=production):
-                        print("\n✓ Rebuild complete! Restarting server...\n")
-                        
-                        # Reset and restart
-                        should_stop = threading.Event()
-                        rebuild_requested = threading.Event()
-                        server_thread = threading.Thread(target=run_server, daemon=True)
-                        server_thread.start()
-                        time.sleep(0.5)
-                    else:
-                        print("\n✗ Rebuild failed. Server stopped.")
-                        return False
-                
-                time.sleep(0.2)  # Small delay to prevent CPU spinning
-                
+                httpd.serve_forever(poll_interval=0.5)
             except KeyboardInterrupt:
-                print("\n\n✓ Server stopped")
-                should_stop.set()
-                if httpd:
-                    try:
-                        httpd.shutdown()
-                    except:
-                        pass
-                break
-            except Exception as e:
-                print(f"\n✗ Error: {e}")
-                should_stop.set()
-                if httpd:
-                    try:
-                        httpd.shutdown()
-                    except:
-                        pass
-                break
-        
-        return True
-        
+                print("\n✓ Stopping server...")
+                # Clean stop requested by user; stop listening loop
+                try:
+                    httpd.shutdown()
+                except Exception:
+                    pass
+                try:
+                    httpd.server_close()
+                except Exception:
+                    pass
+                os.chdir(original_dir)
+                print("✓ Server stopped cleanly")
+                return True
+            finally:
+                # Ensure server closed before rebuild/restart
+                try:
+                    httpd.server_close()
+                except Exception:
+                    pass
+                os.chdir(original_dir)
+
+            # If restart requested, rebuild then loop to restart the server
+            if restart_requested.is_set():
+                print("🔧 Rebuilding site...")
+                if not rebuild_site(production=production):
+                    print("✗ Rebuild failed. Not restarting server.")
+                    return False
+                print("✓ Rebuild complete. Restarting server...\n")
+                continue
+
+            # Otherwise, serve_forever ended without restart or Ctrl+C; exit
+            print("✓ Server stopped cleanly")
+            return True
+
+    except OSError as e:
+        os.chdir(original_dir)
+        if e.errno == 98 or e.errno == 48:
+            print(f"✗ Port {port} is already in use. Try a different port:")
+            print(f"  python build.py serve --port {port + 1}")
+        else:
+            print(f"✗ Error: {e}")
+        return False
     except Exception as e:
+        os.chdir(original_dir)
         print(f"✗ Error: {e}")
-        should_stop.set()
-        if httpd:
-            try:
-                httpd.shutdown()
-            except:
-                pass
         return False
 
 
@@ -485,6 +485,111 @@ class ServerManager:
             return False
 
 
+def interactive_mode(port=8000, production=False):
+    """Run interactive mode with menu-driven commands."""
+    # Check if Pelican is installed
+    try:
+        import pelican
+    except ImportError:
+        print("✗ Pelican is not installed.")
+        print("  Please install dependencies:")
+        print("  pip install -r requirements.txt")
+        return False
+    
+    quit_program = threading.Event()
+    
+    def print_menu():
+        """Print the interactive menu."""
+        print("\n" + "="*60)
+        print("Pelican Blog Manager - Interactive Mode")
+        print("="*60)
+        print("Commands:")
+        print("  b - Build site")
+        print("  r - Rebuild site (clean + build)")
+        print("  s - Serve site")
+        print("  l - Serve site with auto-rebuild (watch for changes)")
+        print("  e - Exit interactive mode")
+        print("  q - Quit program")
+        print("="*60)
+        print("Enter command: ", end='', flush=True)
+    
+    print_menu()
+    
+    while not quit_program.is_set():
+        try:
+            # Use blocking input for menu (more user-friendly)
+            try:
+                cmd = input().strip().lower()
+            except (EOFError, KeyboardInterrupt):
+                cmd = 'q'
+            
+            if not cmd:
+                continue
+            
+            cmd = cmd[0] if len(cmd) > 0 else ''
+            
+            if cmd == 'b':
+                print("\n🔄 Building site...")
+                if build_site(production=production):
+                    print("\n✓ Build completed successfully!")
+                else:
+                    print("\n✗ Build failed!")
+                print_menu()
+            
+            elif cmd == 'r':
+                print("\n🔄 Rebuilding site...")
+                if rebuild_site(production=production):
+                    print("\n✓ Rebuild completed successfully!")
+                else:
+                    print("\n✗ Rebuild failed!")
+                print_menu()
+            
+            elif cmd == 's':
+                print("\n🌐 Starting server...")
+                if serve_site(port=port, production=production, interactive_mode=True, quit_event=quit_program, listen=False):
+                    print("\n✓ Server stopped.")
+                else:
+                    print("\n✗ Server error occurred.")
+                if quit_program.is_set():
+                    break
+                # Server stopped cleanly, return to menu
+                print_menu()
+            
+            elif cmd == 'l':
+                print("\n🌐 Starting server with auto-rebuild (watching for changes)...")
+                if serve_site(port=port, production=production, interactive_mode=True, quit_event=quit_program, listen=True):
+                    print("\n✓ Server stopped.")
+                else:
+                    print("\n✗ Server error occurred.")
+                if quit_program.is_set():
+                    break
+                # Server stopped cleanly, return to menu
+                print_menu()
+            
+            elif cmd == 'e':
+                print("\n✓ Exiting interactive mode...")
+                break
+            
+            elif cmd == 'q':
+                print("\n✓ Quitting program...")
+                quit_program.set()
+                break
+            
+            else:
+                print(f"\n✗ Unknown command: {cmd}")
+                print_menu()
+        
+        except KeyboardInterrupt:
+            print("\n\n✓ Exiting...")
+            quit_program.set()
+            break
+        except Exception as e:
+            print(f"\n✗ Error: {e}")
+            print_menu()
+    
+    return True
+
+
 def main():
     """Main entry point for the build script."""
     parser = argparse.ArgumentParser(
@@ -495,15 +600,18 @@ Examples:
   python build.py build          # Build site (development)
   python build.py build --prod   # Build site (production)
   python build.py serve          # Serve site locally
+  python build.py serve --listen # Serve with auto-rebuild on file changes
   python build.py clean          # Clean output directory
   python build.py rebuild        # Clean and rebuild
+  python build.py                # Start interactive mode
         """
     )
     
     parser.add_argument(
         'action',
+        nargs='?',
         choices=['build', 'serve', 'clean', 'rebuild'],
-        help='Action to perform'
+        help='Action to perform (omit for interactive mode)'
     )
     
     parser.add_argument(
@@ -519,6 +627,12 @@ Examples:
         help='Port for local server (default: 8000)'
     )
     
+    parser.add_argument(
+        '--listen',
+        action='store_true',
+        help='Watch for file changes and auto-rebuild (only for serve action)'
+    )
+    
     args = parser.parse_args()
     
     # Check if Pelican is installed
@@ -530,13 +644,18 @@ Examples:
         print("  pip install -r requirements.txt")
         sys.exit(1)
     
+    # If no action specified, start interactive mode
+    if args.action is None:
+        success = interactive_mode(port=args.port, production=args.prod)
+        sys.exit(0 if success else 1)
+    
     # Execute the requested action
     success = False
     
     if args.action == 'build':
         success = build_site(production=args.prod)
     elif args.action == 'serve':
-        success = serve_site(port=args.port, production=args.prod)
+        success = serve_site(port=args.port, production=args.prod, interactive_mode=False, listen=args.listen)
     elif args.action == 'clean':
         success = clean_site()
     elif args.action == 'rebuild':

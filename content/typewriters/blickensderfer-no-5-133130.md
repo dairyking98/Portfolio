@@ -1,6 +1,5 @@
 Title: Blickensderfer No. 5 - Serial 133130
 Date: 2025-02-10
-Category: machine
 template: typewriter_machine
 Save_as: typewriters/blickensderfer-no-5-133130/index.html
 URL: typewriters/blickensderfer-no-5-133130/
@@ -17,8 +16,6 @@ layout: DHIATENSOR
 color: Black
 location: San Francisco
 work_needed: ink roller height
-
-# Blickensderfer No. 5 - Serial 133130
 
 ## Overview
 

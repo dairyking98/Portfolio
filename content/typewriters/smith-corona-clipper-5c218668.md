@@ -1,6 +1,5 @@
 Title: Smith Corona Clipper - Serial 5C218668
 Date: 2025-02-10
-Category: machine
 template: typewriter_machine
 Save_as: typewriters/smith-corona-clipper-5c218668/index.html
 URL: typewriters/smith-corona-clipper-5c218668/
@@ -15,8 +14,6 @@ pitch: 6.0
 typeface: Bulletin
 color: Brown
 location: San Francisco
-
-# Smith Corona Clipper - Serial 5C218668
 
 ## Overview
 

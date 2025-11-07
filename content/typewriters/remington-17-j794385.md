@@ -1,6 +1,5 @@
 Title: Remington 17 - Serial J794385
 Date: 2025-02-10
-Category: machine
 template: typewriter_machine
 Save_as: typewriters/remington-17-j794385/index.html
 URL: typewriters/remington-17-j794385/
@@ -17,8 +16,6 @@ layout: Unshifted
 color: Black
 location: Tracy
 work_needed: clean
-
-# Remington 17 - Serial J794385
 
 ## Overview
 

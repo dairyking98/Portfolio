@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Tag: {{ tag.name }} - {{ SITENAME }}{% endblock %}
+{% block title %}Tag: {{ tag.name|striptags }} - {{ SITENAME }}{% endblock %}
 
 {% block content %}
 <section class="tag-posts">

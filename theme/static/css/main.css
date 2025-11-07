@@ -64,6 +64,19 @@ body {
     color: var(--color-text);
 }
 
+/* Mobile Nav Toggle */
+.nav-toggle {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    color: var(--color-text);
+    cursor: pointer;
+}
+
 .nav-links {
     display: flex;
     list-style: none;
@@ -374,6 +387,27 @@ body {
     margin: 1.5rem 0;
 }
 
+/* Fluid media */
+.post-content iframe,
+.post-content video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Responsive tables in articles */
+.post-content table {
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+}
+
+.post-content th,
+.post-content td {
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+}
+
 .post-footer {
     margin-top: 3rem;
     padding-top: 2rem;
@@ -592,6 +626,23 @@ body {
         gap: 1rem;
     }
     
+    .nav-toggle {
+        display: inline-flex;
+    }
+    
+    /* Collapse nav links by default on mobile */
+    .nav-links {
+        display: none;
+        width: 100%;
+        gap: 0.75rem;
+    }
+    
+    .nav-links.open {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
     .nav-links {
         gap: 1rem;
         flex-wrap: wrap;
@@ -657,5 +708,18 @@ body {
     font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
     font-size: 0.875rem;
     line-height: 1.6;
+}
+
+/* Tiny phones */
+@media (max-width: 480px) {
+    .site-header {
+        padding: 0.5rem 0;
+    }
+    .main-content {
+        padding: 2rem 0;
+    }
+    .container {
+        padding: 0 0.75rem;
+    }
 }
 

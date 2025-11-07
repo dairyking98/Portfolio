@@ -1,6 +1,5 @@
 Title: Bennett Pocket Typewriter - Serial 18627
 Date: 2025-02-10
-Category: machine
 template: typewriter_machine
 Save_as: typewriters/bennett-pocket-typewriter-18627/index.html
 URL: typewriters/bennett-pocket-typewriter-18627/
@@ -18,8 +17,6 @@ color: Black
 location: San Francisco
 notes: -element retaining clip -cleaning and service
 work_needed: clean, assess, repair
-
-# Bennett Pocket Typewriter - Serial 18627
 
 ## Overview
 

@@ -1,6 +1,5 @@
 Title: Olympia Sg1 - Serial 7-487163
 Date: 2025-02-10
-Category: machine
 template: typewriter_machine
 Save_as: typewriters/olympia-sg1-7-487163/index.html
 URL: typewriters/olympia-sg1-7-487163/
@@ -17,8 +16,6 @@ color: Green
 location: Tracy
 notes: -needs cleaning and service
 work_needed: clean, adjust, new felt
-
-# Olympia Sg1 - Serial 7-487163
 
 ## Overview
 

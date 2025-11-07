@@ -1,6 +1,5 @@
 Title: IBM Model 04 Executive - Serial 180437
 Date: 2025-02-10
-Category: machine
 template: typewriter_machine
 Save_as: typewriters/ibm-model-04-executive-180437/index.html
 URL: typewriters/ibm-model-04-executive-180437/
@@ -15,8 +14,6 @@ typeface: Proportional Modern
 color: Black
 location: San Francisco
 notes: clean assess, shift not working, slow cr
-
-# IBM Model 04 Executive - Serial 180437
 
 ## Overview
 

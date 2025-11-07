@@ -1,6 +1,5 @@
 Title: Blickensderfer No. 8 - Serial 135255
 Date: 2025-02-10
-Category: machine
 template: typewriter_machine
 Save_as: typewriters/blickensderfer-no-8-135255/index.html
 URL: typewriters/blickensderfer-no-8-135255/
@@ -17,8 +16,6 @@ layout: DHIATENSOR
 color: Black
 location: Tracy
 work_needed: D keylever comb interference
-
-# Blickensderfer No. 8 - Serial 135255
 
 ## Overview
 

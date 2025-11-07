@@ -1,6 +1,5 @@
 Title: Postal No. 3 - Serial 14550
 Date: 2025-02-10
-Category: machine
 template: typewriter_machine
 Save_as: typewriters/postal-no-3-14550/index.html
 URL: typewriters/postal-no-3-14550/
@@ -14,8 +13,6 @@ type: Manual
 typeface: *
 color: Black
 location: San Francisco
-
-# Postal No. 3 - Serial 14550
 
 ## Overview
 

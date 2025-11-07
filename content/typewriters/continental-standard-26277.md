@@ -1,6 +1,5 @@
 Title: Continental Standard - Serial 26277
 Date: 2025-02-10
-Category: machine
 template: typewriter_machine
 Save_as: typewriters/continental-standard-26277/index.html
 URL: typewriters/continental-standard-26277/
@@ -17,8 +16,6 @@ layout: QWERTZ
 color: Black
 location: Tracy
 notes: -get spools from Pelicram
-
-# Continental Standard - Serial 26277
 
 ## Overview
 

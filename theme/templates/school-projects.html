@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ page.title }} - {{ SITENAME }}{% endblock %}
+{% block title %}{{ page.title|striptags }} - {{ SITENAME }}{% endblock %}
 
 {% block content %}
 <article class="page projects-page">
@@ -9,20 +9,21 @@
         {{ page.content }}
     </div>
     
-    {% set all_articles = articles %}
-    
     <!-- School Projects Section -->
     <section class="project-section" id="school-projects">
-        {% set has_school_posts = false %}
-        {% for article in all_articles %}
-            {% if article.category and article.category.name == "School Projects" %}
-                {% set has_school_posts = true %}
-            {% endif %}
-        {% endfor %}
-        {% if has_school_posts %}
+        {% set tags_dict = tags if tags is defined else (ALL_TAGS if ALL_TAGS is defined else {}) %}
+        {% set ns = namespace(list=[]) %}
+        {% if tags_dict %}
+            {% for tag, articles in tags_dict %}
+                {% if tag.name == "school-project" or tag.slug == "school-project" %}
+                    {% set ns.list = articles %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        
+        {% if ns.list %}
         <div class="posts-list">
-            {% for article in all_articles %}
-                {% if article.category and article.category.name == "School Projects" %}
+            {% for article in ns.list %}
                 <article class="post-preview">
                     <h3><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
                     <div class="post-meta">
@@ -40,7 +41,6 @@
                     {% endif %}
                     <a href="{{ SITEURL }}/{{ article.url }}" class="read-more">Read more →</a>
                 </article>
-                {% endif %}
             {% endfor %}
         </div>
         {% else %}

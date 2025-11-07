@@ -1,6 +1,5 @@
 Title: Hammond Multiplex - Serial CC231416
 Date: 2025-02-10
-Category: machine
 template: typewriter_machine
 Save_as: typewriters/hammond-multiplex-cc231416/index.html
 URL: typewriters/hammond-multiplex-cc231416/
@@ -17,8 +16,6 @@ layout: Mathematical
 color: Black
 location: San Francisco
 work_needed: Need math shuttle, cleaning
-
-# Hammond Multiplex - Serial CC231416
 
 ## Overview
 
