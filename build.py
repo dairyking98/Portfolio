@@ -45,16 +45,39 @@ def run_command(command, description, capture_output=False):
         return False
 
 
+def load_config(production=False) -> dict:
+    """Load Pelican config as a dict."""
+    config_file = 'publishconf.py' if production else 'pelicanconf.py'
+    config: dict = {}
+    try:
+        with open(config_file, 'r', encoding='utf-8') as f:
+            code = compile(f.read(), config_file, 'exec')
+            # Execute with same dict for globals/locals so assignments persist
+            exec(code, config, config)
+    except Exception:
+        # Fall back to defaults if config can't be loaded
+        pass
+    return config
+
+
+def get_output_path(production=False) -> Path:
+    """Resolve OUTPUT_PATH from Pelican config."""
+    config = load_config(production=production)
+    output_path = config.get('OUTPUT_PATH', 'output') or 'output'
+    return Path(output_path)
+
+
 def build_site(production=False):
     """Build the Pelican site."""
     config_file = 'publishconf.py' if production else 'pelicanconf.py'
-    command = f'pelican content -s {config_file} -o output'
+    command = f'pelican content -s {config_file}'
     
     if not run_command(command, f"Building site ({'production' if production else 'development'} mode)"):
         return False
     
     print("\n✓ Site built successfully!")
-    print(f"  Output directory: {os.path.abspath('output')}")
+    resolved_output = get_output_path(production=production).resolve()
+    print(f"  Output directory: {resolved_output}")
     return True
 
 
@@ -63,7 +86,7 @@ def serve_site(port=8000, production=False, interactive_mode=False, quit_event=N
 
     Note: listen is ignored in this implementation to preserve reliable stop behavior.
     """
-    output_path = Path('output')
+    output_path = get_output_path(production=production)
     if not output_path.exists():
         print("✗ Output directory not found. Building site first...")
         if not build_site(production=production):
@@ -119,7 +142,7 @@ def serve_site(port=8000, production=False, interactive_mode=False, quit_event=N
     # If not listening, run the simple, robust server once
     if not listen:
         try:
-            os.chdir('output')
+            os.chdir(str(output_path))
             handler = http.server.SimpleHTTPRequestHandler
             httpd = socketserver.TCPServer(("0.0.0.0", port), handler)
             print("Server running...\n")
@@ -164,7 +187,7 @@ def serve_site(port=8000, production=False, interactive_mode=False, quit_event=N
             restart_requested = threading.Event()
 
             # Start HTTP server
-            os.chdir('output')
+            os.chdir(str(output_path))
             handler = http.server.SimpleHTTPRequestHandler
             httpd = socketserver.TCPServer(("0.0.0.0", port), handler)
             print("Server running (listening for changes)...\n")
@@ -245,9 +268,17 @@ def serve_site(port=8000, production=False, interactive_mode=False, quit_event=N
         return False
 
 
-def clean_site():
+def clean_site(production=False):
     """Clean the output directory."""
-    output_path = Path('output')
+    output_path = get_output_path(production=production)
+    # Never attempt to delete the project root
+    try:
+        if output_path.resolve() == Path('.').resolve():
+            print("⚠ Skipping clean: output path is project root")
+            return True
+    except Exception:
+        # On any resolution error, fall back to safe behavior
+        pass
     if output_path.exists():
         import shutil
         try:
@@ -268,7 +299,7 @@ def rebuild_site(production=False):
     print("Rebuilding site")
     print("="*60)
     
-    if not clean_site():
+    if not clean_site(production=production):
         return False
     
     return build_site(production=production)
@@ -617,7 +648,13 @@ Examples:
     parser.add_argument(
         '--prod',
         action='store_true',
-        help='Use production configuration (publishconf.py)'
+        help='Use production configuration (publishconf.py) [default]'
+    )
+    
+    parser.add_argument(
+        '--dev',
+        action='store_true',
+        help='Use development configuration (pelicanconf.py)'
     )
     
     parser.add_argument(
@@ -644,22 +681,29 @@ Examples:
         print("  pip install -r requirements.txt")
         sys.exit(1)
     
+    # Determine production mode: default to production unless --dev is provided
+    production = True
+    if args.dev:
+        production = False
+    if args.prod:
+        production = True
+    
     # If no action specified, start interactive mode
     if args.action is None:
-        success = interactive_mode(port=args.port, production=args.prod)
+        success = interactive_mode(port=args.port, production=production)
         sys.exit(0 if success else 1)
     
     # Execute the requested action
     success = False
     
     if args.action == 'build':
-        success = build_site(production=args.prod)
+        success = build_site(production=production)
     elif args.action == 'serve':
-        success = serve_site(port=args.port, production=args.prod, interactive_mode=False, listen=args.listen)
+        success = serve_site(port=args.port, production=production, interactive_mode=False, listen=args.listen)
     elif args.action == 'clean':
-        success = clean_site()
+        success = clean_site(production=production)
     elif args.action == 'rebuild':
-        success = rebuild_site(production=args.prod)
+        success = rebuild_site(production=production)
     
     sys.exit(0 if success else 1)
 

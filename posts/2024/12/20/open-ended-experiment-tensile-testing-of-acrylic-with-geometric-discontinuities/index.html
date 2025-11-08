@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Pelican" />
+    
+    <title>Open-Ended Experiment: Tensile Testing of Acrylic with Geometric Discontinuities - Leonard Chau - Portfolio & Engineering Blog</title>
+    
+    <link rel="stylesheet" href="https://dairyking98.github.io/Portfolio/site_theme/css/main.css" />
+    
+    <link href="https://dairyking98.github.io/Portfolio/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Leonard Chau - Portfolio & Engineering Blog Atom Feed" />
+    
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <nav class="main-nav">
+                <a href="https://dairyking98.github.io/Portfolio/" class="logo">Leonard Chau - Portfolio & Engineering Blog</a>
+                <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    ☰ Menu
+                </button>
+                <ul class="nav-links" id="primary-nav">
+                    <li><a href="https://dairyking98.github.io/Portfolio/">Home</a></li>
+                    <li><a href="https://dairyking98.github.io/Portfolio/about">About</a></li>
+                    <li><a href="https://dairyking98.github.io/Portfolio/school-projects">School Projects</a></li>
+                    <li><a href="https://dairyking98.github.io/Portfolio/personal-projects">Personal Projects</a></li>
+                    <li class="nav-dropdown">
+                        <a href="https://dairyking98.github.io/Portfolio/typewriters">Typewriters <span class="dropdown-arrow">▼</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://dairyking98.github.io/Portfolio/typewriters">Overview</a></li>
+                            <li><a href="https://dairyking98.github.io/Portfolio/typewriters/collection/">Collection Spreadsheet</a></li>
+                            <li><a href="https://dairyking98.github.io/Portfolio/typewriters/collection-posts/">Collection Posts</a></li>
+                            <li><a href="https://dairyking98.github.io/Portfolio/typewriters/3d-type-elements/">3D Type Elements</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="https://dairyking98.github.io/Portfolio/tags.html">Tags</a></li>
+                    <li><a href="https://dairyking98.github.io/Portfolio/archives.html">Archives</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+<article class="post">
+    <header class="post-header">
+        <h1>Open-Ended Experiment: Tensile Testing of Acrylic with Geometric&nbsp;Discontinuities</h1>
+        <div class="post-meta">
+            <time datetime="2024-12-20T09:00:00-05:00">December 20, 2024</time>
+            <span class="category">
+                <a href="https://dairyking98.github.io/Portfolio/category/school-projects/">School Projects</a>
+            </span>
+            <span class="tags">
+                <a href="https://dairyking98.github.io/Portfolio/tag/materials-testing/" class="tag">materials-testing</a>
+                <a href="https://dairyking98.github.io/Portfolio/tag/mechanical-engineering/" class="tag">mechanical-engineering</a>
+                <a href="https://dairyking98.github.io/Portfolio/tag/stress-analysis/" class="tag">stress-analysis</a>
+                <a href="https://dairyking98.github.io/Portfolio/tag/school-project/" class="tag">school-project</a>
+            </span>
+        </div>
+    </header>
+    
+    <div class="post-content">
+        <p><span class="caps">ENGR</span> 302 – Experimental Analysis at San Francisco State University culminated in an open-ended lab where my teammates (Tom Boivin, Driss Hakkou, Denis Steffen) and I characterized how geometric discontinuities influence the tensile performance of 1/4-inch cast acrylic. We modeled and fabricated “dog bone” specimens with circular, notched, square, and diamond cut-outs, then compared their behavior against a control sample to understand how stress concentration factors translate into real&nbsp;failures.</p>
+<h2 id="project-overview">Project&nbsp;Overview</h2>
+<ul>
+<li><strong>Objective:</strong> quantify the impact of different discontinuity geometries on acrylic tensile strength and ductility, and compare the findings against theoretical stress concentration&nbsp;predictions.</li>
+<li><strong>My focus:</strong> coordinating specimen preparation, verifying the Instron 3369 test program, and consolidating the load–elongation data exported from Bluehill Universal into a clean dataset for team&nbsp;analysis.</li>
+<li><strong>Course context:</strong> <span class="caps">ENGR</span> 302 — Experimental Analysis, Fall 2024 (Instructor: Dr. Ed&nbsp;Cheng).</li>
+</ul>
+<h2 id="experimental-setup">Experimental&nbsp;Setup</h2>
+<p>We used an Instron 3369 tensile test frame with a 50 kN load cell and threaded side-action grips to maintain alignment and avoid slippage. Each test ran at 2 in/min while Bluehill Universal logged force and displacement. An initial calibration sweep checked the load cell and grip tension before every pair of&nbsp;specimens.</p>
+<p>Specimens were laser-cut from McMaster-Carr cast acrylic sheet&nbsp;(<code>4615T47</code>), sanded to remove machining marks, and measured to capture true cross-sectional areas. Control blanks retained the full gauge width, while the discontinuity specimens reduced the critical area to approximately 29.5 mm². Detailed dimensions and <span class="caps">CAD</span> sketches are included in the source&nbsp;report.</p>
+<h2 id="key-findings">Key&nbsp;Findings</h2>
+<ul>
+<li><strong>Control baseline:</strong> yielded at 11.1 MPa—roughly 80% lower than the manufacturer’s 55 MPa specification—highlighting how processing and environmental factors can degrade acrylic&nbsp;strength.</li>
+<li><strong>Circular vs. notched specimens:</strong> yielded at 18.96 MPa (Kt ≈ 1.71) and 21.56 MPa (Kt ≈ 1.94), respectively. The rounded notch distributed stress slightly better than the through-hole, aligning closely with handbook&nbsp;predictions.</li>
+<li><strong>Sharp corners matter:</strong> square and diamond cut-outs experienced brittle failures at 17.25 MPa and 20.51 MPa with minimal elongation (≤1.76 mm), confirming how angular geometry acts like pre-existing&nbsp;cracks.</li>
+<li><strong>Ductility loss:</strong> control specimens stretched to 10.2 mm before fracture, whereas discontinuity samples fractured almost immediately after yielding, showing how stress raisers strip away energy absorption&nbsp;capacity.</li>
+</ul>
+<h2 id="theoretical-vs-experimental-snapshot">Theoretical vs. Experimental&nbsp;Snapshot</h2>
+<table>
+<thead>
+<tr>
+<th>Specimen Type</th>
+<th>Theoretical Yield Stress (MPa)†</th>
+<th>Experimental Yield Stress (MPa)</th>
+<th>Ratio (Actual ÷ Theoretical)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Control</td>
+<td>11.11 (baseline)</td>
+<td>11.11</td>
+<td>1.00</td>
+</tr>
+<tr>
+<td>Circular Hole</td>
+<td>23.70</td>
+<td>18.96</td>
+<td>0.80 (Kt ≈ 1.71)</td>
+</tr>
+<tr>
+<td>Notched</td>
+<td>19.74</td>
+<td>21.56</td>
+<td>1.09 (Kt ≈ 1.94)</td>
+</tr>
+</tbody>
+</table>
+<p>†Derived using control yield stress as the nominal reference and handbook stress concentration factors.<br>
+Note: We could not locate reliable theoretical data for the laser-cut square and diamond geometries—those specimens are discussed purely from experimental&nbsp;observations.</p>
+<h2 id="experimental-metrics-overview">Experimental Metrics&nbsp;Overview</h2>
+<table>
+<thead>
+<tr>
+<th>Specimen Type</th>
+<th style="text-align: right;">Yield Force (N)</th>
+<th style="text-align: right;">Yield Stress (MPa)</th>
+<th style="text-align: right;">Ultimate Stress (MPa)</th>
+<th style="text-align: right;">Fracture Stress (MPa)</th>
+<th style="text-align: right;">Max Elongation (mm)</th>
+<th style="text-align: right;">Modulus (MPa)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Control</td>
+<td style="text-align: right;">750</td>
+<td style="text-align: right;">11.11</td>
+<td style="text-align: right;">57.04</td>
+<td style="text-align: right;">51.84</td>
+<td style="text-align: right;">10.20</td>
+<td style="text-align: right;">1,743</td>
+</tr>
+<tr>
+<td>Circular Hole</td>
+<td style="text-align: right;">580</td>
+<td style="text-align: right;">18.96</td>
+<td style="text-align: right;">50.27</td>
+<td style="text-align: right;">50.27</td>
+<td style="text-align: right;">1.63</td>
+<td style="text-align: right;">4,116.5</td>
+</tr>
+<tr>
+<td>Notched</td>
+<td style="text-align: right;">625</td>
+<td style="text-align: right;">21.56</td>
+<td style="text-align: right;">71.63</td>
+<td style="text-align: right;">71.57</td>
+<td style="text-align: right;">2.25</td>
+<td style="text-align: right;">4,098.5</td>
+</tr>
+<tr>
+<td>Square Hole</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">17.25</td>
+<td style="text-align: right;">54.77</td>
+<td style="text-align: right;">54.77</td>
+<td style="text-align: right;">1.76</td>
+<td style="text-align: right;">3,483</td>
+</tr>
+<tr>
+<td>Diamond Hole</td>
+<td style="text-align: right;">600</td>
+<td style="text-align: right;">20.51</td>
+<td style="text-align: right;">34.70</td>
+<td style="text-align: right;">34.70</td>
+<td style="text-align: right;">0.89</td>
+<td style="text-align: right;">4,478</td>
+</tr>
+</tbody>
+</table>
+<p>Additional&nbsp;context:</p>
+<ul>
+<li><strong>Cross-sectional area:</strong> control blanks averaged 67.51 mm²; all discontinuity specimens clustered around 29–31&nbsp;mm².</li>
+<li><strong>Elongation at yield:</strong> ranged from 0.39–0.55 mm, reinforcing the brittle response once discontinuities were&nbsp;introduced.</li>
+<li><strong>Stress concentration factors:</strong> experimentally back-calculated Kt values were 1.00 (control), 1.71 (circle), and 1.94 (notch); the square and diamond data did not yield stable Kt values because the failure location varied&nbsp;specimen-to-specimen.</li>
+</ul>
+<h2 id="discussion-and-recommendations">Discussion and&nbsp;Recommendations</h2>
+<p>The close agreement between theoretical and experimental stress concentration factors for simple shapes validated our analytical approach. However, the scatter in the square and diamond data underlined the limits of handbook solutions for complex geometries. We&nbsp;recommended:</p>
+<ul>
+<li>Slowing the crosshead speed to 0.5 in/min for more stable strain measurements on brittle&nbsp;plastics.</li>
+<li>Polishing laser-cut edges to reduce micro-crack initiation&nbsp;sites.</li>
+<li>Extending the study with finite element analysis to visualize stress fields around sharp&nbsp;corners.</li>
+<li>Repeating the experiment across temperatures to capture acrylic’s sensitivity to cold-induced&nbsp;embrittlement.</li>
+</ul>
+<h2 id="lessons-learned">Lessons&nbsp;Learned</h2>
+<ul>
+<li>Material datasheet values can diverge dramatically from lab-prepared specimens; surface finish and fabrication technique&nbsp;matter.</li>
+<li>Precise dimensional metrology is essential when small area changes drive stress&nbsp;calculations.</li>
+<li>Capturing full test context (fixture setup, calibration steps, environmental notes) makes post-lab analysis and reporting far&nbsp;easier.</li>
+</ul>
+<h2 id="source-document">Source&nbsp;Document</h2>
+<ul>
+<li><a href="/documents/2024/engr302/OEE-Final-Report-12-20-24.pdf">Open-Ended Experiment Report (<span class="caps">PDF</span>)</a></li>
+</ul>
+<hr>
+<p><em>Completed December 2024 for <span class="caps">ENGR</span> 302 — Experimental Analysis (Professor Ed&nbsp;Cheng).</em></p>
+    </div>
+    
+    <footer class="post-footer">
+        <nav class="post-nav">
+        </nav>
+    </footer>
+</article>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2025 Leonard Chau. All rights reserved.</p>
+            <ul class="social-links">
+                <li><a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="https://dairyking98.github.io/Portfolio/site_theme/js/main.js"></script>
+</body>
+</html>

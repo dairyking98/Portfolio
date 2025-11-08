@@ -67,6 +67,7 @@ CATEGORIES_SAVE_AS = 'categories.html'
 
 # Theme
 THEME = 'theme'
+THEME_STATIC_DIR = 'site_theme'
 
 # Plugins
 PLUGIN_PATHS = ['plugins']

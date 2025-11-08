@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Pelican" />
+    
+    <title>My Collection - Leonard Chau - Portfolio & Engineering Blog</title>
+    
+    <link rel="stylesheet" href="https://dairyking98.github.io/Portfolio/site_theme/css/main.css" />
+    
+    <link href="https://dairyking98.github.io/Portfolio/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Leonard Chau - Portfolio & Engineering Blog Atom Feed" />
+    
+<link rel="stylesheet" href="https://dairyking98.github.io/Portfolio/site_theme/css/typewriters.css" />
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <nav class="main-nav">
+                <a href="https://dairyking98.github.io/Portfolio/" class="logo">Leonard Chau - Portfolio & Engineering Blog</a>
+                <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    ☰ Menu
+                </button>
+                <ul class="nav-links" id="primary-nav">
+                    <li><a href="https://dairyking98.github.io/Portfolio/">Home</a></li>
+                    <li><a href="https://dairyking98.github.io/Portfolio/about">About</a></li>
+                    <li><a href="https://dairyking98.github.io/Portfolio/school-projects">School Projects</a></li>
+                    <li><a href="https://dairyking98.github.io/Portfolio/personal-projects">Personal Projects</a></li>
+                    <li class="nav-dropdown">
+                        <a href="https://dairyking98.github.io/Portfolio/typewriters">Typewriters <span class="dropdown-arrow">▼</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://dairyking98.github.io/Portfolio/typewriters">Overview</a></li>
+                            <li><a href="https://dairyking98.github.io/Portfolio/typewriters/collection/">Collection Spreadsheet</a></li>
+                            <li><a href="https://dairyking98.github.io/Portfolio/typewriters/collection-posts/">Collection Posts</a></li>
+                            <li><a href="https://dairyking98.github.io/Portfolio/typewriters/3d-type-elements/">3D Type Elements</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="https://dairyking98.github.io/Portfolio/tags.html">Tags</a></li>
+                    <li><a href="https://dairyking98.github.io/Portfolio/archives.html">Archives</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+<article class="page typewriters-page">
+    <h1>My&nbsp;Collection</h1>
+    
+    <div class="typewriters-intro">
+        <p>Documentation of each typewriter in my collection, with detailed photos and links to the master&nbsp;spreadsheet.</p>
+    </div>
+    
+    
+    <div class="collection-links">
+        <a href="#collection-posts" class="collection-link">
+            <span>📝</span> View Posts (
+            0 machines)
+        </a>
+    </div>
+    
+    <!-- Collection Table View (existing functionality) -->
+    <div class="collection-table-section">
+        <div class="view-controls">
+            <button id="list-view-btn" class="view-btn active" data-view="list">
+                <span>📋</span> List View
+            </button>
+            <button id="pivot-view-btn" class="view-btn" data-view="pivot">
+                <span>📊</span> Pivot View
+            </button>
+        </div>
+        
+        <div class="typewriters-container">
+            <!-- List View -->
+            <div id="list-view" class="view-content active">
+                <div class="table-controls">
+                    <input type="text" id="search-input" placeholder="Search typewriters..." class="search-input">
+                    <select id="sort-select" class="sort-select">
+                        <option value="">-- Sort by --</option>
+                        <option value="Typewriter Brand|asc">Make (A-Z)</option>
+                        <option value="Typewriter Brand|desc">Make (Z-A)</option>
+                        <option value="Year|asc">Year (Oldest First)</option>
+                        <option value="Year|desc">Year (Newest First)</option>
+                        <option value="Model|asc">Model (A-Z)</option>
+                        <option value="Model|desc">Model (Z-A)</option>
+                        <option value="Location|asc">Location (A-Z)</option>
+                        <option value="Location|desc">Location (Z-A)</option>
+                        <option value="Value|desc">Value (High to Low)</option>
+                        <option value="Value|asc">Value (Low to High)</option>
+                        <option value="Purchase Price|desc">Purchase Price (High to Low)</option>
+                        <option value="Purchase Price|asc">Purchase Price (Low to High)</option>
+                    </select>
+                </div>
+                <div class="table-wrapper">
+                    <table id="typewriters-table" class="typewriters-table">
+                        <thead id="table-head">
+                            <!-- Headers will be populated by JavaScript -->
+                        </thead>
+                        <tbody id="table-body">
+                            <!-- Rows will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-info">
+                    <span id="table-count">0</span> typewriters displayed
+                </div>
+            </div>
+            
+            <!-- Pivot View -->
+            <div id="pivot-view" class="view-content">
+                <div class="pivot-controls">
+                    <label>
+                        Group by:
+                        <select id="pivot-group" class="pivot-select">
+                            <option value="Typewriter Brand">Brand</option>
+                            <option value="Size">Size</option>
+                            <option value="Electric/Manual">Type</option>
+                            <option value="Location">Location</option>
+                            <option value="Year">Year</option>
+                        </select>
+                    </label>
+                    <label>
+                        Show:
+                        <select id="pivot-metric" class="pivot-select">
+                            <option value="count">Count</option>
+                            <option value="value">Total Value</option>
+                            <option value="purchase">Total Purchase Price</option>
+                        </select>
+                    </label>
+                </div>
+                <div id="pivot-chart" class="pivot-chart">
+                    <!-- Pivot data will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Collection Posts (Machine Pages) -->
+    <div id="collection-posts" class="collection-posts">
+        <h3>Machine Documentation</h3>
+        <p>Individual pages for each machine in my collection (1 post per machine, many photos, linked to master spreadsheet).</p>
+        <p>No machine pages yet. Check back soon!</p>
+    </div>
+    
+    <div class="update-info">
+        <p><small>Last updated: <span id="last-updated">-</span></small></p>
+        <p><small>To update the collection list, edit <code>content/typewriters.csv</code> and rebuild the site. CSV to JSON conversion happens automatically!</small></p>
+    </div>
+</article>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2025 Leonard Chau. All rights reserved.</p>
+            <ul class="social-links">
+                <li><a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="https://dairyking98.github.io/Portfolio/site_theme/js/main.js"></script>
+<script src="https://dairyking98.github.io/Portfolio/site_theme/js/typewriters.js"></script>
+</body>
+</html>
