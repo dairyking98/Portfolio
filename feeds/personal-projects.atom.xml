@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Leonard Chau - Portfolio &amp; Engineering Blog - Personal Projects</title><link href="https://dairyking98.github.io/Portfolio/" rel="alternate"/><link href="https://dairyking98.github.io/Portfolio/feeds/personal-projects.atom.xml" rel="self"/><id>https://dairyking98.github.io/Portfolio/</id><updated>2025-11-08T10:00:00-05:00</updated><entry><title>Large Laser Cut Vernier Caliper</title><link href="https://dairyking98.github.io/Portfolio/posts/2025/11/08/large-laser-cut-vernier-caliper/" rel="alternate"/><published>2025-11-08T10:00:00-05:00</published><updated>2025-11-08T10:00:00-05:00</updated><author><name>Leonard Chau</name></author><id>tag:dairyking98.github.io,2025-11-08:/Portfolio/posts/2025/11/08/large-laser-cut-vernier-caliper/</id><summary type="html">&lt;p&gt;Oversized, fully functional 33&amp;#8221; vernier caliper designed in Fusion 360, laser-cut in &lt;span class="caps"&gt;MDF&lt;/span&gt; with &lt;span class="caps"&gt;PETG&lt;/span&gt; brackets, and Python-generated scales achieving 0.01&amp;#8221;&amp;nbsp;resolution.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I designed and built a large-format vernier caliper as an educational tool that demonstrates precision measurement concepts at a scale that’s easy to see and&amp;nbsp;understand.&lt;/p&gt;
+&lt;h2 id="design-and-cad"&gt;Design and &lt;span class="caps"&gt;CAD&lt;/span&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Created the caliper beam outline and bracket geometry in Fusion&amp;nbsp;360&lt;/li&gt;
+&lt;li&gt;Exported brackets as &lt;span class="caps"&gt;STL&lt;/span&gt; for printing; caliper outline as &lt;span class="caps"&gt;DXF&lt;/span&gt; for laser&amp;nbsp;cutting&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="fabrication"&gt;Fabrication&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Laser-cut and 3D-printed the vernier parts in 1/4&amp;#8221; &lt;span class="caps"&gt;MDF&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;Printed the brackets in &lt;span class="caps"&gt;PETG&lt;/span&gt; for durability and&amp;nbsp;stiffness&lt;/li&gt;
+&lt;li&gt;Engraved the scales after cutting and completed&amp;nbsp;assembly&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="scale-generation"&gt;Scale&amp;nbsp;Generation&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Wrote a short Python script to generate an inch rule with 0.1&amp;#8221; main&amp;nbsp;divisions&lt;/li&gt;
+&lt;li&gt;Generated a matching vernier scale to achieve 0.01&amp;#8221; measurement&amp;nbsp;resolution&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="result"&gt;Result&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Fully functional up to 33&amp;nbsp;inches&lt;/li&gt;
+&lt;li&gt;Measures to&amp;nbsp;0.01&amp;#8221;&lt;/li&gt;
+&lt;li&gt;Highly effective as a hands-on instructional/learning&amp;nbsp;tool&lt;/li&gt;
+&lt;/ul&gt;</content><category term="Personal Projects"/><category term="laser-cutting"/><category term="3d-printing"/><category term="fusion-360"/><category term="python"/><category term="measurement"/><category term="fabrication"/><category term="personal-project"/><category term="education"/></entry></feed>
