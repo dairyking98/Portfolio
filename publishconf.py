@@ -17,6 +17,9 @@ from pelicanconf import *
 SITEURL = 'https://dairyking98.github.io/Portfolio'
 RELATIVE_URLS = False
 
+# Always include articles dated in the future (prevents time-of-day cutoffs from hiding posts)
+WITH_FUTURE_DATES = True
+
 # Write generated site to repository root (so index.html is at project root)
 OUTPUT_PATH = '.'
 # Never delete the output directory when set to project root
