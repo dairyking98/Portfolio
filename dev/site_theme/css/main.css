@@ -110,14 +110,6 @@ body {
     transition: transform 0.2s;
 }
 
-.submenu-toggle {
-    display: none;
-}
-
-.nav-dropdown:hover .dropdown-arrow {
-    transform: rotate(180deg);
-}
-
 .dropdown-menu {
     position: absolute;
     top: 100%;
@@ -674,20 +666,6 @@ body {
         flex-direction: column;
         gap: 1rem;
     }
-
-    .submenu-toggle {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.25rem 0.5rem;
-        background: none;
-        border: 1px solid var(--color-border);
-        border-radius: 4px;
-        color: var(--color-text);
-        cursor: pointer;
-        margin-left: 0.25rem;
-        line-height: 1;
-    }
     
     .nav-toggle {
         display: inline-flex;
@@ -732,6 +710,16 @@ body {
     .nav-dropdown.submenu-open > a .dropdown-arrow {
         transform: rotate(180deg);
     }
+
+    /* Prevent sticky hover styles on touch devices */
+    .nav-links a:hover {
+        color: var(--color-text-light);
+    }
+
+    /* Disable hover-based arrow rotation on mobile; rely on submenu-open state */
+    .nav-dropdown:hover > a .dropdown-arrow {
+        transform: none;
+    }
     
     .hero h1 {
         font-size: 2rem;
@@ -764,6 +752,12 @@ body {
 	}
 }
 
+/* Desktop-only hover rotation for arrow */
+@media (min-width: 769px) {
+    .nav-dropdown:hover > a .dropdown-arrow {
+        transform: rotate(180deg);
+    }
+}
 /* Code Highlighting (basic styles, can be enhanced with Pygments themes) */
 .highlight {
     margin: 1.5rem 0;
