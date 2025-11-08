@@ -20,10 +20,40 @@ document.addEventListener('DOMContentLoaded', () => {
             if (willOpen) {
                 document.addEventListener('keydown', closeOnEscape);
             }
+
+            // When closing the mobile nav, also close any open submenus
+            if (!willOpen) {
+                const openDropdowns = navList.querySelectorAll('.nav-dropdown.submenu-open');
+                openDropdowns.forEach((item) => {
+                    const btn = item.querySelector('.submenu-toggle');
+                    if (btn) {
+                        btn.setAttribute('aria-expanded', 'false');
+                    }
+                    item.classList.remove('submenu-open');
+                });
+            }
         };
 
         toggleButton.addEventListener('click', () => toggleNav());
     }
+
+    // Mobile submenu toggle by clicking the Typewriters link (only on mobile)
+    const mqMobile = window.matchMedia('(max-width: 768px)');
+    const dropdownLinks = document.querySelectorAll('.nav-dropdown > a');
+    dropdownLinks.forEach((anchor) => {
+        const dropdownItem = anchor.closest('.nav-dropdown');
+        if (!dropdownItem) return;
+        anchor.addEventListener('click', (event) => {
+            // If mobile viewport or the main nav is in mobile-open state, toggle submenu
+            const navList = document.getElementById('primary-nav');
+            const isMobile = mqMobile.matches || (navList && navList.classList.contains('open'));
+            if (isMobile) {
+                event.preventDefault();
+                const isOpen = dropdownItem.classList.contains('submenu-open');
+                dropdownItem.classList.toggle('submenu-open', !isOpen);
+            }
+        });
+    });
 });
 
 

@@ -220,7 +220,7 @@ body {
 
 .post-preview {
 	display: grid;
-	grid-template-columns: 240px 1fr;
+	grid-template-columns: 320px 1fr;
 	gap: 1.25rem;
 	align-items: start;
 }
@@ -421,6 +421,11 @@ body {
 	margin-bottom: 1.25rem;
 	border: 1px solid var(--color-border);
 	background-color: var(--color-code-bg);
+}
+
+/* Project listing pages should use full container width (not the 800px .page max) */
+.projects-page {
+	max-width: 100%;
 }
 
 /* Fluid media */
