@@ -1,6 +1,6 @@
 Title: Analog Voltmeter Clock - Time and Environmental Monitor
 Date: 2024-12-15 10:00
-Tags: arduino, electronics, embedded-systems, sensors, 3d-printing, school-project
+Tags: arduino, electronics, embedded-systems, sensors, 3d-printing, school-project, personal-project
 Category: School Projects
 Summary: A unique clock project combining analog voltmeters with environmental monitoring, featuring custom 3D-printed enclosure and Arduino-based control system.
 

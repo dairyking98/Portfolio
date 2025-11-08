@@ -15,21 +15,35 @@
     <div class="posts-list">
         {% for article in articles %}
         <article class="post-preview">
-            <h3><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
-            <div class="post-meta">
-                <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
-                {% if article.tags %}
-                <span class="tags">
-                    {% for tag in article.tags %}
-                    <a href="{{ SITEURL }}/{{ tag.url }}" class="tag">{{ tag.name }}</a>
-                    {% endfor %}
-                </span>
+            {# Determine preview image from metadata or attributes; fallback to placeholder #}
+            {% set preview_image = (article.metadata and (article.metadata.get('cover_image') or article.metadata.get('image') or article.metadata.get('thumbnail'))) %}
+            {% set preview_alt = (article.metadata and (article.metadata.get('image_alt') or article.metadata.get('thumbnail_alt'))) or 'Post preview image' %}
+
+            <a class="preview-image" href="{{ SITEURL }}/{{ article.url }}">
+                {% if preview_image %}
+                <img src="{{ SITEURL }}/{{ preview_image }}" alt="{{ preview_alt }}" onerror="this.onerror=null;this.src='{{ SITEURL }}/site_theme/images/post-placeholder.svg';">
+                {% else %}
+                <img src="{{ SITEURL }}/site_theme/images/post-placeholder.svg" alt="No image available">
                 {% endif %}
+            </a>
+
+            <div class="post-preview-body">
+                <h3><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
+                <div class="post-meta">
+                    <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
+                    {% if article.tags %}
+                    <span class="tags">
+                        {% for tag in article.tags %}
+                        <a href="{{ SITEURL }}/{{ tag.url }}" class="tag">{{ tag.name }}</a>
+                        {% endfor %}
+                    </span>
+                    {% endif %}
+                </div>
+                {% if article.summary %}
+                <p class="post-summary">{{ article.summary }}</p>
+                {% endif %}
+                <a href="{{ SITEURL }}/{{ article.url }}" class="read-more">Read more →</a>
             </div>
-            {% if article.summary %}
-            <p class="post-summary">{{ article.summary }}</p>
-            {% endif %}
-            <a href="{{ SITEURL }}/{{ article.url }}" class="read-more">Read more →</a>
         </article>
         {% endfor %}
     </div>

@@ -48,7 +48,8 @@ def run_command(command, description, capture_output=False):
 def load_config(production=False) -> dict:
     """Load Pelican config as a dict."""
     config_file = 'publishconf.py' if production else 'pelicanconf.py'
-    config: dict = {}
+    # Ensure __file__ is available to the executed config (some configs rely on it)
+    config: dict = {'__file__': os.path.abspath(config_file)}
     try:
         with open(config_file, 'r', encoding='utf-8') as f:
             code = compile(f.read(), config_file, 'exec')
@@ -354,7 +355,7 @@ class ServerManager:
             old_thread.join(timeout=2)
         
         # Check output path and build if needed (outside lock)
-        output_path = Path('output')
+        output_path = get_output_path(production=self.production)
         if not output_path.exists():
             self._log("Output directory not found. Building site first...")
             if not build_site(production=self.production):
@@ -390,7 +391,8 @@ class ServerManager:
     def _run_server(self):
         """Run the HTTP server in a separate thread."""
         try:
-            os.chdir('output')
+            output_path = get_output_path(production=self.production)
+            os.chdir(str(output_path))
             import http.server
             import socketserver
             
@@ -681,8 +683,8 @@ Examples:
         print("  pip install -r requirements.txt")
         sys.exit(1)
     
-    # Determine production mode: default to production unless --dev is provided
-    production = True
+    # Determine production mode: default to development unless --prod is provided
+    production = False
     if args.dev:
         production = False
     if args.prod:

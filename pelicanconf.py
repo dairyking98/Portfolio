@@ -11,16 +11,19 @@ AUTHOR = 'Leonard Chau'
 SITENAME = 'Leonard Chau - Portfolio & Engineering Blog'
 SITEURL = ''
 SITEDESCRIPTION = 'Personal portfolio and engineering blog'
+RELATIVE_URLS = True
 
 # Paths
 PATH = 'content'
 ARTICLE_PATHS = ['posts']  # Only files in posts/ are articles
 PAGE_PATHS = ['', 'typewriters']  # Files in content root and typewriters/ are pages
+PAGE_EXCLUDES = ['images', 'documents', 'extra', 'posts']  # Exclude static and article dirs from pages
 STATIC_PATHS = ['images', 'extra', 'documents']
 EXTRA_PATH_METADATA = {
     'extra/favicon.ico': {'path': 'favicon.ico'},
     'extra/typewriters.json': {'path': 'typewriters.json'},
 }
+IGNORE_FILES = ['README.md']  # Do not try to parse repository READMEs as content
 
 # Time and locale
 TIMEZONE = 'America/New_York'
@@ -124,7 +127,7 @@ MENUITEMS = (
 FOOTER_TEXT = f'© {date.today().year} {AUTHOR}. All rights reserved.'
 
 # Output settings
-OUTPUT_PATH = 'output'
+OUTPUT_PATH = 'dev'  # Development builds go to ./dev
 DELETE_OUTPUT_DIRECTORY = True
 
 # Typogrify settings (for better typography)

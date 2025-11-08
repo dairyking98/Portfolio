@@ -6,6 +6,14 @@
 <article class="post">
     <header class="post-header">
         <h1>{{ article.title }}</h1>
+        {# Optional hero image pulled from same metadata used on homepage #}
+        {% set cover_flag = (article.metadata and article.metadata.get('cover')) %}
+        {% set cover_enabled = cover_flag and cover_flag|lower in ['true','yes','1','on'] %}
+        {% set hero_image = (article.metadata and (article.metadata.get('cover_image') or article.metadata.get('image') or article.metadata.get('thumbnail'))) %}
+        {% set hero_alt = (article.metadata and (article.metadata.get('image_alt') or article.metadata.get('thumbnail_alt'))) or article.title %}
+        {% if cover_enabled and hero_image %}
+        <img class="post-hero" src="{{ SITEURL }}/{{ hero_image }}" alt="{{ hero_alt }}" onerror="this.onerror=null;this.src='{{ SITEURL }}/site_theme/images/post-placeholder.svg';">
+        {% endif %}
         <div class="post-meta">
             <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
             {% if article.category %}

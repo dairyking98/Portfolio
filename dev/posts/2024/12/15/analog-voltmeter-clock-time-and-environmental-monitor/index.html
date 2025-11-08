@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Pelican" />
+    
+    <title>Analog Voltmeter Clock - Time and Environmental Monitor - Leonard Chau - Portfolio & Engineering Blog</title>
+    
+    <link rel="stylesheet" href="../../../../../site_theme/css/main.css" />
+    
+    
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <nav class="main-nav">
+                <a href="../../../../../" class="logo">Leonard Chau - Portfolio & Engineering Blog</a>
+                <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    ☰ Menu
+                </button>
+                <ul class="nav-links" id="primary-nav">
+                    <li><a href="../../../../../">Home</a></li>
+                    <li><a href="../../../../../about">About</a></li>
+                    <li><a href="../../../../../school-projects">School Projects</a></li>
+                    <li><a href="../../../../../personal-projects">Personal Projects</a></li>
+                    <li class="nav-dropdown">
+                        <a href="../../../../../typewriters">Typewriters <span class="dropdown-arrow">▼</span></a>
+                        <button class="submenu-toggle" aria-expanded="false" aria-controls="submenu-typewriters" aria-label="Toggle Typewriters submenu">▾</button>
+                        <ul class="dropdown-menu" id="submenu-typewriters">
+                            <li><a href="../../../../../typewriters">Overview</a></li>
+                            <li><a href="../../../../../typewriters/collection/">Collection Spreadsheet</a></li>
+                            <li><a href="../../../../../typewriters/collection-posts/">Collection Posts</a></li>
+                            <li><a href="../../../../../typewriters/3d-type-elements/">3D Type Elements</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../../../../../tags.html">Tags</a></li>
+                    <li><a href="../../../../../archives.html">Archives</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+<article class="post">
+    <header class="post-header">
+        <h1>Analog Voltmeter Clock - Time and Environmental&nbsp;Monitor</h1>
+        <div class="post-meta">
+            <time datetime="2024-12-15T10:00:00-05:00">December 15, 2024</time>
+            <span class="category">
+                <a href="../../../../../category/school-projects/">School Projects</a>
+            </span>
+            <span class="tags">
+                <a href="../../../../../tag/arduino/" class="tag">arduino</a>
+                <a href="../../../../../tag/electronics/" class="tag">electronics</a>
+                <a href="../../../../../tag/embedded-systems/" class="tag">embedded-systems</a>
+                <a href="../../../../../tag/sensors/" class="tag">sensors</a>
+                <a href="../../../../../tag/3d-printing/" class="tag">3d-printing</a>
+                <a href="../../../../../tag/school-project/" class="tag">school-project</a>
+                <a href="../../../../../tag/personal-project/" class="tag">personal-project</a>
+            </span>
+        </div>
+    </header>
+    
+    <div class="post-content">
+        <p>This project was completed for Assignment 4 in Fall 2024, under Professor Jonathan Song. The challenge was to design and build a device that displays time using analog voltmeters, with the added functionality of monitoring pressure, temperature, and&nbsp;humidity.</p>
+<h2 id="project-overview">Project&nbsp;Overview</h2>
+<p>The device I built is a clock combined with a pressure, temperature, and humidity monitor using analog voltmeters for an engaging and unique display. The analog voltmeters feature custom legends that indicate the current hour, minute, and second, or pressure, temperature, and humidity on a graduated scale. I was inspired by the idea of using analog displays to show time, which has a classic and visually engaging aesthetic. To further challenge myself, I integrated environmental monitoring features, making the device&nbsp;multi-functional.</p>
+<p>All components and the encoder knob assembly are securely fastened to a custom 3D-printed enclosure made of <span class="caps">PLA</span> on an Ender 5 printer. Time adjustments are made using a homemade rotary encoder and a button. The display toggles with a short press of the&nbsp;button.</p>
+<h2 id="physical-design">Physical&nbsp;Design</h2>
+<p>For the physical design, I aimed to create something large and unique—a device that would instill curiosity at first glance. The analog voltmeters and vintage embossed labels provide a sense of nostalgia. The oversized rotary encoder is a deliberate design choice, serving both functional and educational purposes. The method of function of an incremental rotary encoder can now be felt, seen, and heard. It offers a satisfying, hands-on experience and acts as a demonstration tool to illustrate the inner workings of a rotary&nbsp;encoder.</p>
+<p>The analog voltmeter&#8217;s original 0-30V graduated display was modified with custom-designed and printed legends that indicate:
+- <strong>Hours</strong>: 0-12
+- <strong>Minutes and Seconds</strong>: 0-60
+- <strong>Pressure</strong>: 950-1030 hPa
+- <strong>Relative Humidity</strong>:&nbsp;0-100%</p>
+<p>These values were chosen as the range at which this device is estimated to function. The voltmeters, originally rated for 30V, had to be further modified to operate at 5V by removing their internal resistors and installing adjustable potentiometers for&nbsp;calibration.</p>
+<h2 id="system-architecture">System&nbsp;Architecture</h2>
+<p>A <span class="caps">DS3231</span> real-time clock module (<span class="caps">RTC</span>) is used to keep accurate time and maintain the time even when the Arduino is fully powered off, thanks to an external watch battery. It communicates with the Arduino via <span class="caps">I2C</span> protocol. The current time provided by the <span class="caps">RTC</span> is obtained constantly and stored as variables in the&nbsp;Arduino.</p>
+<p>The <span class="caps">BMP180</span> pressure sensor also communicates via <span class="caps">I2C</span>, and the current pressure is stored as a variable. The <span class="caps">DHT22</span> humidity sensor operates via pulse-width modulated input, which is handled by a library, and its variable is also&nbsp;stored.</p>
+<p>The time and environmental variables are converted to integers in the range of 0 to 255 to provide pulse-width modulated outputs for the voltmeters. When the display mode is set to <span class="caps">TIME</span>, the voltmeters display the current hour, minute, and second at quarter-second intervals to provide for a sweeping second hand, and the <span class="caps">HOURS</span>, <span class="caps">MINUTES</span>, and <span class="caps">SECONDS</span> LEDs remain on. When the display mode is set to <span class="caps">PTH</span> (pressure, temperature, and humidity), the voltmeters display the current pressure, temperature, and humidity, and the <span class="caps">PRESSURE</span>, <span class="caps">TEMPERATURE</span>, and <span class="caps">HUMIDITY</span> LEDs remain&nbsp;on.</p>
+<h2 id="user-interface">User&nbsp;Interface</h2>
+<p>The display mode is toggleable via a short press of a user-interaction arcade button. Upon a long press of the arcade button, a <span class="caps">TIME</span> <span class="caps">CHANGE</span> mode is entered, in which the rotary encoder is used to select the new <span class="caps">HOUR</span>, <span class="caps">MINUTE</span>, and <span class="caps">SECOND</span>. This is indicated by a blinking corresponding <span class="caps">LED</span> and isolated operation of the selected voltmeter. A new value is confirmed by pressing the arcade button until the last parameter, <span class="caps">SECONDS</span>, has been updated, returning to <span class="caps">TIME</span> display&nbsp;mode.</p>
+<p>The rotary encoder operates on two input signals that are treated as interrupts, performing interrupt service routines (ISRs) when their signal values change, providing for a responsive and effective incremental rotary&nbsp;encoder.</p>
+<h2 id="components-and-materials">Components and&nbsp;Materials</h2>
+<p>The device is built using the following&nbsp;components:</p>
+<ul>
+<li><strong>Arduino Nano</strong>&nbsp;(microcontroller)</li>
+<li><strong>Two limit switches</strong> (used for rotary encoder&nbsp;input)</li>
+<li><strong>One arcade button</strong> (for toggling the display and time&nbsp;adjustment)</li>
+<li><strong>One <span class="caps">DHT22</span> sensor</strong> (for temperature and humidity&nbsp;sensing)</li>
+<li><strong>One <span class="caps">BMP180</span> sensor</strong> (for pressure&nbsp;sensing)</li>
+<li><strong>Six 6V LEDs</strong> (for illumination and visual&nbsp;feedback)</li>
+<li><strong>One <span class="caps">DS3231</span> <span class="caps">RTC</span></strong> (Real-Time Clock) module (for accurate&nbsp;timekeeping)</li>
+<li><strong>Three analog voltmeters</strong> (to display time and environmental&nbsp;data)</li>
+<li><strong>Three 5kΩ potentiometers</strong> (for analog voltmeter&nbsp;calibration)</li>
+<li><strong>3D-printed <span class="caps">PLA</span> enclosure</strong> (custom-designed&nbsp;housing)</li>
+<li>Various resistors, wires, and mounting&nbsp;hardware</li>
+</ul>
+<h2 id="key-features">Key&nbsp;Features</h2>
+<ol>
+<li><strong>Dual Display Modes</strong>: Toggle between time display and environmental&nbsp;monitoring</li>
+<li><strong>Quarter-Second Updates</strong>: Smooth sweeping second hand using <span class="caps">PWM</span>&nbsp;interpolation</li>
+<li><strong>Custom Calibrated Voltmeters</strong>: Modified from 30V to 5V operation with custom&nbsp;legends</li>
+<li><strong>Homemade Rotary Encoder</strong>: Built from limit switches for educational&nbsp;demonstration</li>
+<li><strong>3D-Printed Enclosure</strong>: Custom-designed housing for all&nbsp;components</li>
+<li><strong>Real-Time Clock</strong>: Maintains accurate time even when powered&nbsp;off</li>
+</ol>
+<h2 id="technical-implementation">Technical&nbsp;Implementation</h2>
+<p>The Arduino code handles:
+- Reading time from the <span class="caps">DS3231</span> <span class="caps">RTC</span> module
+- Reading environmental data from <span class="caps">BMP180</span> and <span class="caps">DHT22</span> sensors
+- Converting values to <span class="caps">PWM</span> signals (0-255) for voltmeter control
+- Managing rotary encoder interrupts for time adjustment
+- Button press detection (short press for mode toggle, long press for time adjustment)
+- <span class="caps">LED</span> control for visual feedback
+- Quarter-second interpolation for smooth second hand&nbsp;movement</p>
+<h2 id="development-process">Development&nbsp;Process</h2>
+<p>The project involved several key development&nbsp;steps:</p>
+<ol>
+<li><strong>Conceptual Design</strong>: Initial idea for using analog voltmeters as&nbsp;displays</li>
+<li><strong>Component Selection</strong>: Choosing appropriate sensors and&nbsp;microcontroller</li>
+<li><strong>Voltmeter Modification</strong>: Removing internal resistors and adding potentiometers for 5V&nbsp;operation</li>
+<li><strong>Custom Legend Design</strong>: Creating and printing custom scales for each&nbsp;voltmeter</li>
+<li><strong>3D Enclosure Design</strong>: Designing and printing the housing in Fusion&nbsp;360</li>
+<li><strong>Arduino Programming</strong>: Implementing the control logic and sensor&nbsp;interfaces</li>
+<li><strong>Calibration</strong>: Adjusting potentiometers to match voltmeter readings with actual&nbsp;values</li>
+<li><strong>Testing and Refinement</strong>: Iterative testing to ensure accuracy and&nbsp;reliability</li>
+</ol>
+<h2 id="lessons-learned">Lessons&nbsp;Learned</h2>
+<p>This project taught me valuable lessons about:
+- Interfacing multiple sensors with Arduino (<span class="caps">I2C</span> and digital protocols)
+- <span class="caps">PWM</span> signal generation and calibration
+- Real-time clock integration and time management
+- Rotary encoder implementation using interrupts
+- 3D printing considerations for electronics enclosures
+- Analog display calibration and modification
+- User interface design for embedded&nbsp;systems</p>
+<h2 id="source-documents">Source&nbsp;Documents</h2>
+<p>The following documents are available for&nbsp;reference:</p>
+<ul>
+<li><a href="/documents/2024/clock-project/Clock-Report.pdf">Clock Report</a> - Complete project report with detailed design, implementation, and&nbsp;analysis</li>
+<li><a href="/documents/2024/clock-project/Assignment-4-Project-Idea.pdf">Assignment 4 Project Idea</a> - Initial project proposal and&nbsp;concept</li>
+<li><a href="/documents/2024/clock-project/Arduino-Clock-Code.md">Arduino Clock Code</a> - Complete source code with detailed&nbsp;comments</li>
+<li><a href="/documents/2024/clock-project/Clock-Presentation.pdf">Clock Presentation</a> - Project presentation&nbsp;slides</li>
+</ul>
+<hr>
+<p><em>This project was completed in December 2024 for Assignment 4 (Professor Jonathan Song) as part of my academic&nbsp;coursework.</em></p>
+    </div>
+    
+    <footer class="post-footer">
+        <nav class="post-nav">
+        </nav>
+    </footer>
+</article>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2025 Leonard Chau. All rights reserved.</p>
+            <ul class="social-links">
+                <li><a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="../../../../../site_theme/js/main.js"></script>
+</body>
+</html>
