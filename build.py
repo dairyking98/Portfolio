@@ -13,12 +13,27 @@ import threading
 import time
 from pathlib import Path
 
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+if hasattr(sys.stderr, "reconfigure"):
+    try:
+        sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
-def run_command(command, description, capture_output=False):
+
+def run_command(command, description, capture_output=False, env=None):
     """Run a shell command and handle errors."""
     print(f"\n{'='*60}")
     print(f"{description}")
     print(f"{'='*60}")
+    run_env = None
+    if env:
+        run_env = os.environ.copy()
+        run_env.update(env)
     try:
         if capture_output:
             result = subprocess.run(
@@ -26,14 +41,15 @@ def run_command(command, description, capture_output=False):
                 shell=True,
                 check=True,
                 capture_output=True,
-                text=True
+                text=True,
+                env=run_env
             )
             if result.stdout:
                 print(result.stdout)
             if result.stderr:
                 print(result.stderr, file=sys.stderr)
         else:
-            result = subprocess.run(command, shell=True, check=True)
+            result = subprocess.run(command, shell=True, check=True, env=run_env)
         print(f"✓ {description} completed successfully")
         return True
     except subprocess.CalledProcessError as e:
@@ -68,12 +84,13 @@ def get_output_path(production=False) -> Path:
     return Path(output_path)
 
 
-def build_site(production=False):
+def build_site(production=False, site_url=None):
     """Build the Pelican site."""
     config_file = 'publishconf.py' if production else 'pelicanconf.py'
-    command = f'pelican content -s {config_file}'
+    command = f'"{sys.executable}" -m pelican content -s {config_file}'
+    env = {'SITEURL': site_url} if site_url else None
     
-    if not run_command(command, f"Building site ({'production' if production else 'development'} mode)"):
+    if not run_command(command, f"Building site ({'production' if production else 'development'} mode)", env=env):
         return False
     
     print("\n✓ Site built successfully!")
@@ -82,15 +99,16 @@ def build_site(production=False):
     return True
 
 
-def serve_site(port=8000, production=False, interactive_mode=False, quit_event=None, listen=False):
+def serve_site(port=8000, production=False, interactive_mode=False, quit_event=None, listen=False, site_url=None):
     """Serve the site locally with a clean Ctrl+C exit.
 
     Note: listen is ignored in this implementation to preserve reliable stop behavior.
     """
+    site_url = site_url or ('https://leonardchau.com' if production else f"http://localhost:{port}")
     output_path = get_output_path(production=production)
     if not output_path.exists():
         print("✗ Output directory not found. Building site first...")
-        if not build_site(production=production):
+        if not build_site(production=production, site_url=site_url):
             return False
 
     print(f"\n{'='*60}")
@@ -245,7 +263,7 @@ def serve_site(port=8000, production=False, interactive_mode=False, quit_event=N
             # If restart requested, rebuild then loop to restart the server
             if restart_requested.is_set():
                 print("🔧 Rebuilding site...")
-                if not rebuild_site(production=production):
+                if not rebuild_site(production=production, site_url=site_url):
                     print("✗ Rebuild failed. Not restarting server.")
                     return False
                 print("✓ Rebuild complete. Restarting server...\n")
@@ -294,7 +312,7 @@ def clean_site(production=False):
         return True
 
 
-def rebuild_site(production=False):
+def rebuild_site(production=False, site_url=None):
     """Clean and rebuild the site."""
     print("\n" + "="*60)
     print("Rebuilding site")
@@ -303,16 +321,17 @@ def rebuild_site(production=False):
     if not clean_site(production=production):
         return False
     
-    return build_site(production=production)
+    return build_site(production=production, site_url=site_url)
 
 
 class ServerManager:
     """Manages the HTTP server for GUI applications."""
     
-    def __init__(self, port=8000, production=False, log_callback=None):
+    def __init__(self, port=8000, production=False, log_callback=None, site_url=None):
         self.port = port
         self.production = production
         self.log_callback = log_callback
+        self.site_url = site_url
         self.httpd = None
         self.server_thread = None
         self.should_stop = threading.Event()
@@ -356,9 +375,10 @@ class ServerManager:
         
         # Check output path and build if needed (outside lock)
         output_path = get_output_path(production=self.production)
+        site_url = self.site_url or ('https://leonardchau.com' if self.production else f"http://localhost:{self.port}")
         if not output_path.exists():
             self._log("Output directory not found. Building site first...")
-            if not build_site(production=self.production):
+            if not build_site(production=self.production, site_url=site_url):
                 return False
         
         # Reset state and start server (inside lock)
@@ -384,6 +404,7 @@ class ServerManager:
                 return False
             
             self.is_running = True
+            self.site_url = site_url
         
         self._log(f"Server started at http://localhost:{self.port}")
         return True
@@ -518,8 +539,9 @@ class ServerManager:
             return False
 
 
-def interactive_mode(port=8000, production=False):
+def interactive_mode(port=8000, production=False, site_url=None):
     """Run interactive mode with menu-driven commands."""
+    site_url = site_url or ('https://leonardchau.com' if production else f"http://localhost:{port}")
     # Check if Pelican is installed
     try:
         import pelican
@@ -563,7 +585,7 @@ def interactive_mode(port=8000, production=False):
             
             if cmd == 'b':
                 print("\n🔄 Building site...")
-                if build_site(production=production):
+                if build_site(production=production, site_url=site_url):
                     print("\n✓ Build completed successfully!")
                 else:
                     print("\n✗ Build failed!")
@@ -571,7 +593,7 @@ def interactive_mode(port=8000, production=False):
             
             elif cmd == 'r':
                 print("\n🔄 Rebuilding site...")
-                if rebuild_site(production=production):
+                if rebuild_site(production=production, site_url=site_url):
                     print("\n✓ Rebuild completed successfully!")
                 else:
                     print("\n✗ Rebuild failed!")
@@ -579,7 +601,7 @@ def interactive_mode(port=8000, production=False):
             
             elif cmd == 's':
                 print("\n🌐 Starting server...")
-                if serve_site(port=port, production=production, interactive_mode=True, quit_event=quit_program, listen=False):
+                if serve_site(port=port, production=production, interactive_mode=True, quit_event=quit_program, listen=False, site_url=site_url):
                     print("\n✓ Server stopped.")
                 else:
                     print("\n✗ Server error occurred.")
@@ -590,7 +612,7 @@ def interactive_mode(port=8000, production=False):
             
             elif cmd == 'l':
                 print("\n🌐 Starting server with auto-rebuild (watching for changes)...")
-                if serve_site(port=port, production=production, interactive_mode=True, quit_event=quit_program, listen=True):
+                if serve_site(port=port, production=production, interactive_mode=True, quit_event=quit_program, listen=True, site_url=site_url):
                     print("\n✓ Server stopped.")
                 else:
                     print("\n✗ Server error occurred.")
@@ -672,6 +694,11 @@ Examples:
         help='Watch for file changes and auto-rebuild (only for serve action)'
     )
     
+    parser.add_argument(
+        '--site-url',
+        help='Override SITEURL used during build (default: custom domain in production, http://localhost:PORT in development)'
+    )
+    
     args = parser.parse_args()
     
     # Check if Pelican is installed
@@ -690,22 +717,26 @@ Examples:
     if args.prod:
         production = True
     
+    site_url = args.site_url
+    if not site_url:
+        site_url = 'https://leonardchau.com' if production else f"http://localhost:{args.port}"
+    
     # If no action specified, start interactive mode
     if args.action is None:
-        success = interactive_mode(port=args.port, production=production)
+        success = interactive_mode(port=args.port, production=production, site_url=site_url)
         sys.exit(0 if success else 1)
     
     # Execute the requested action
     success = False
     
     if args.action == 'build':
-        success = build_site(production=production)
+        success = build_site(production=production, site_url=site_url)
     elif args.action == 'serve':
-        success = serve_site(port=args.port, production=production, interactive_mode=False, listen=args.listen)
+        success = serve_site(port=args.port, production=production, interactive_mode=False, listen=args.listen, site_url=site_url)
     elif args.action == 'clean':
         success = clean_site(production=production)
     elif args.action == 'rebuild':
-        success = rebuild_site(production=production)
+        success = rebuild_site(production=production, site_url=site_url)
     
     sys.exit(0 if success else 1)
 

@@ -4,14 +4,15 @@
 Pelican configuration file for personal portfolio and engineering blog.
 """
 
+import os
 from datetime import date
 
 # Basic site information
 AUTHOR = 'Leonard Chau'
 SITENAME = 'Leonard Chau - Portfolio & Engineering Blog'
-SITEURL = ''
+SITEURL = os.environ.get('SITEURL', '')
 SITEDESCRIPTION = 'Personal portfolio and engineering blog'
-RELATIVE_URLS = True
+RELATIVE_URLS = not SITEURL
 
 # Paths
 PATH = 'content'
