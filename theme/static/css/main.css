@@ -417,10 +417,20 @@ body {
 	max-height: 420px;
 	object-fit: cover;
 	border-radius: 8px;
-	margin-top: 0.75rem;
-	margin-bottom: 1.25rem;
+	margin: 0;
 	border: 1px solid var(--color-border);
 	background-color: var(--color-code-bg);
+}
+
+.post-hero-figure {
+	margin-top: 0.75rem;
+	margin-bottom: 1.25rem;
+}
+
+.post-hero-caption {
+	font-size: 0.875rem;
+	color: var(--color-text-light);
+	margin-top: 0.5rem;
 }
 
 /* Project listing pages should use full container width (not the 800px .page max) */

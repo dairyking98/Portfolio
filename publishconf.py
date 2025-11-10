@@ -14,7 +14,7 @@ from pelicanconf import *
 
 # Production URL (update this when deploying to GitHub Pages or custom domain)
 # For GitHub Pages: https://username.github.io or https://yourdomain.com
-SITEURL = 'https://dairyking98.github.io/Portfolio'
+SITEURL = 'https://leonardchau.com'
 RELATIVE_URLS = False
 
 # Always include articles dated in the future (prevents time-of-day cutoffs from hiding posts)
