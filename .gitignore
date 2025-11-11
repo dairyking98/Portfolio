@@ -7,6 +7,9 @@ local/
 *.gem
 *.gemspec
 
+# GitHub Pages - DO NOT ignore .nojekyll if you want Jekyll processing
+# (We deleted .nojekyll to enable Jekyll processing)
+
 # Generated HTML artifacts (Jekyll generates these automatically)
 about/index.html
 author/
