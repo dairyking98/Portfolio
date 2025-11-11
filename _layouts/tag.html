@@ -1,0 +1,37 @@
+---
+layout: default
+---
+
+<section class="tag-posts">
+    <h1>Tag: {{ page.tag }}</h1>
+    
+    {% assign tagged_posts = site.posts | where_exp: "post", "post.tags contains page.tag" %}
+    {% if tagged_posts.size > 0 %}
+    <div class="posts-list">
+        {% for post in tagged_posts %}
+        <article class="post-preview">
+            <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+            <div class="post-meta">
+                <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time>
+                {% if post.category %}
+                <span class="category">
+                    <a href="{{ site.baseurl }}/category/{{ post.category | slugify }}">{{ post.category }}</a>
+                </span>
+                {% endif %}
+            </div>
+            {% if post.excerpt %}
+            <p class="post-summary">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+            {% elsif post.description %}
+            <p class="post-summary">{{ post.description }}</p>
+            {% endif %}
+            <a href="{{ post.url | relative_url }}" class="read-more">Read more →</a>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No posts with this tag yet.</p>
+    {% endif %}
+    
+    <p class="back-link"><a href="{{ site.baseurl }}/tags.html">← All Tags</a></p>
+</section>
+

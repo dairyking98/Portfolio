@@ -1,8 +1,8 @@
 @echo off
-REM Jekyll build script
-REM Builds the site to _site/ directory
+REM Jekyll serve script for local development
+REM Starts Jekyll server with auto-reload on http://localhost:4000
 
-echo Building Jekyll site...
+echo Starting Jekyll server...
 echo.
 
 REM Check if Ruby is installed
@@ -32,17 +32,13 @@ if not exist "Gemfile.lock" (
     echo.
 )
 
-bundle exec jekyll build --destination local/_site
-
-if %ERRORLEVEL% EQU 0 (
-    echo.
-    echo Build completed successfully!
-    echo Site generated in local/_site/ directory
-) else (
-    echo.
-    echo Build failed with error code %ERRORLEVEL%
-)
-
+echo The site will be available at http://localhost:4000
+echo Press Ctrl+C to stop the server
 echo.
+echo Local build output: local/_site/
+echo.
+
+bundle exec jekyll serve --destination local/_site
+
 pause
 

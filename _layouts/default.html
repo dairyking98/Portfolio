@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en' }}">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Jekyll" />
+    
+    <title>{% if page.title %}{{ page.title | strip_html }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+    
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
+    
+    {% if site.feed %}
+    <link href="{{ site.url }}{{ site.baseurl }}/{{ site.feed.path }}" type="application/atom+xml" rel="alternate" title="{{ site.title }} Atom Feed" />
+    {% endif %}
+    
+    {% if page.extra_head %}{{ page.extra_head }}{% endif %}
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <nav class="main-nav">
+                <a href="{{ site.baseurl }}/" class="logo">{{ site.title }}</a>
+                <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    ☰ Menu
+                </button>
+                <ul class="nav-links" id="primary-nav">
+                    {% for item in site.navigation %}
+                    {% if item.submenu %}
+                    <li class="nav-dropdown">
+                        <a href="{{ site.baseurl }}{{ item.url }}">{{ item.title }} <span class="dropdown-arrow">▼</span></a>
+                        <ul class="dropdown-menu" id="submenu-{{ item.title | downcase | replace: ' ', '-' }}">
+                            {% for subitem in item.submenu %}
+                            <li><a href="{{ site.baseurl }}{{ subitem.url }}">{{ subitem.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li><a href="{{ site.baseurl }}{{ item.url }}">{{ item.title }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            {{ content }}
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>© {{ site.time | date: "%Y" }} {{ site.author }}. All rights reserved.</p>
+            {% if site.social %}
+            <ul class="social-links">
+                {% for item in site.social %}
+                <li><a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ item.name }}</a></li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </footer>
+
+    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+    {% if page.extra_js %}{{ page.extra_js }}{% endif %}
+</body>
+</html>
+

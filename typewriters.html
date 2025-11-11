@@ -1,0 +1,76 @@
+---
+layout: default
+title: Typewriters
+extra_head: <link rel="stylesheet" href="{{ '/assets/css/typewriters.css' | relative_url }}" />
+permalink: /typewriters/
+---
+
+<article class="page typewriters-page">
+    <h1>Typewriters</h1>
+    
+    <div class="typewriters-intro">
+        <p>My typewriter collection and related projects.</p>
+    </div>
+    
+    <div class="collection-links">
+        <a href="{{ site.baseurl }}/typewriters/collection/" class="collection-link">
+            <span>📊</span>
+            <span>View Collection Spreadsheet</span>
+        </a>
+    </div>
+    
+    {% assign typewriter_posts = site.posts | where: 'category', 'Typewriters' %}
+    
+    <!-- Collection Posts Section -->
+    <section class="typewriter-section" id="collection-posts">
+        <h2><a href="{{ site.baseurl }}/typewriters/collection-posts/">Collection Posts</a></h2>
+        <p>Machine pages and posts about my typewriter collection, restoration work, and related topics.</p>
+    </section>
+    
+    <!-- 3D Type Elements Section -->
+    <section class="typewriter-section" id="3d-type-elements">
+        <h2><a href="{{ site.baseurl }}/typewriters/3d-type-elements/">3D Type Elements</a></h2>
+        <p>3D printing projects related to typewriters, with documentation and GitHub links for each sub-project.</p>
+    </section>
+    
+    <!-- General Typewriter Posts Section -->
+    <section class="typewriter-section" id="typewriter-posts">
+        <p>General posts about typewriters, including collection updates, restoration work, and related topics.</p>
+        
+        {% if typewriter_posts.size > 0 %}
+        {% assign general_posts = typewriter_posts | where_exp: "post", "post.tags contains 'my-collection' == false and post.tags contains '3d-type-elements' == false" %}
+        {% if general_posts.size > 0 %}
+        <div class="posts-subsection">
+            <div class="posts-list">
+                {% for post in general_posts %}
+                <article class="post-preview">
+                    <h4><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h4>
+                    <div class="post-meta">
+                        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time>
+                        {% if post.tags %}
+                        <span class="tags">
+                            {% for tag in post.tags %}
+                            <a href="{{ site.baseurl }}/tag/{{ tag | slugify }}" class="tag">{{ tag }}</a>
+                            {% endfor %}
+                        </span>
+                        {% endif %}
+                    </div>
+                    {% if post.excerpt %}
+                    <p class="post-summary">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+                    {% elsif post.description %}
+                    <p class="post-summary">{{ post.description }}</p>
+                    {% endif %}
+                    <a href="{{ post.url | relative_url }}" class="read-more">Read more →</a>
+                </article>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <p>No typewriter posts yet. Check back soon!</p>
+        {% endif %}
+        {% else %}
+        <p>No typewriter posts yet. Check back soon!</p>
+        {% endif %}
+    </section>
+</article>
+

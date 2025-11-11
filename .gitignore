@@ -1,5 +1,13 @@
-# Pelican output
-output/
+# Jekyll
+_site/
+local/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+*.gem
+*.gemspec
+
+# Pelican output (legacy - no longer used)
 *.pid
 *.pyc
 __pycache__/
@@ -30,4 +38,9 @@ Thumbs.db
 dist/
 build/
 *.egg-info/
+
+# Bundler
+.bundle/
+vendor/
+Gemfile.lock
 

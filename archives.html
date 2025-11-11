@@ -1,136 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="generator" content="Pelican" />
-    
-    <title>Archives - Leonard Chau - Portfolio & Engineering Blog</title>
-    
-    <link rel="stylesheet" href="https://leonardchau.com/site_theme/css/main.css" />
-    
-    <link href="https://leonardchau.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Leonard Chau - Portfolio & Engineering Blog Atom Feed" />
-    
-</head>
+---
+layout: default
+title: Archives
+---
 
-<body>
-    <header class="site-header">
-        <div class="container">
-            <nav class="main-nav">
-                <a href="https://leonardchau.com/" class="logo">Leonard Chau - Portfolio & Engineering Blog</a>
-                <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">
-                    ☰ Menu
-                </button>
-                <ul class="nav-links" id="primary-nav">
-                    <li><a href="https://leonardchau.com/">Home</a></li>
-                    <li><a href="https://leonardchau.com/about">About</a></li>
-                    <li><a href="https://leonardchau.com/school-projects">School Projects</a></li>
-                    <li><a href="https://leonardchau.com/personal-projects">Personal Projects</a></li>
-                    <li class="nav-dropdown">
-                        <a href="https://leonardchau.com/typewriters">Typewriters <span class="dropdown-arrow">▼</span></a>
-                        <ul class="dropdown-menu" id="submenu-typewriters">
-                            <li><a href="https://leonardchau.com/typewriters">Overview</a></li>
-                            <li><a href="https://leonardchau.com/typewriters/collection/">Collection Spreadsheet</a></li>
-                            <li><a href="https://leonardchau.com/typewriters/collection-posts/">Collection Posts</a></li>
-                            <li><a href="https://leonardchau.com/typewriters/3d-type-elements/">3D Type Elements</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="https://leonardchau.com/tags.html">Tags</a></li>
-                    <li><a href="https://leonardchau.com/archives.html">Archives</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <main class="main-content">
-        <div class="container">
 <section class="archives-page">
     <h1>Archives</h1>
     
+    {% if site.posts.size > 0 %}
     <div class="archives-list">
+        {% for post in site.posts %}
         <article class="archive-item">
-            <time datetime="2025-11-08T10:00:00-05:00">November 08, 2025</time>
-            <h3><a href="https://leonardchau.com/posts/2025/11/08/large-laser-cut-vernier-caliper/">Large Laser Cut Vernier&nbsp;Caliper</a></h3>
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time>
+            <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+            {% if post.tags %}
             <span class="tags">
-                <a href="https://leonardchau.com/tag/laser-cutting/" class="tag">laser-cutting</a>
-                <a href="https://leonardchau.com/tag/3d-printing/" class="tag">3d-printing</a>
-                <a href="https://leonardchau.com/tag/fusion-360/" class="tag">fusion-360</a>
-                <a href="https://leonardchau.com/tag/python/" class="tag">python</a>
-                <a href="https://leonardchau.com/tag/measurement/" class="tag">measurement</a>
-                <a href="https://leonardchau.com/tag/fabrication/" class="tag">fabrication</a>
-                <a href="https://leonardchau.com/tag/personal-project/" class="tag">personal-project</a>
-                <a href="https://leonardchau.com/tag/education/" class="tag">education</a>
+                {% for tag in post.tags %}
+                <a href="{{ site.baseurl }}/tag/{{ tag | slugify }}" class="tag">{{ tag }}</a>
+                {% endfor %}
             </span>
+            {% endif %}
         </article>
-        <article class="archive-item">
-            <time datetime="2025-11-08T10:00:00-05:00">November 08, 2025</time>
-            <h3><a href="https://leonardchau.com/posts/2025/11/08/senior-capstone-ev-battery-management-and-swapping-system/">Senior Capstone: <span class="caps">EV</span> Battery Management and Swapping&nbsp;System</a></h3>
-            <span class="tags">
-                <a href="https://leonardchau.com/tag/school-project/" class="tag">school-project</a>
-                <a href="https://leonardchau.com/tag/electronics/" class="tag">electronics</a>
-                <a href="https://leonardchau.com/tag/embedded-systems/" class="tag">embedded-systems</a>
-                <a href="https://leonardchau.com/tag/design/" class="tag">design</a>
-                <a href="https://leonardchau.com/tag/mechanical-engineering/" class="tag">mechanical-engineering</a>
-                <a href="https://leonardchau.com/tag/portfolio/" class="tag">portfolio</a>
-            </span>
-        </article>
-        <article class="archive-item">
-            <time datetime="2025-02-10T10:00:00-05:00">February 10, 2025</time>
-            <h3><a href="https://leonardchau.com/posts/2025/02/10/welcome-to-my-engineering-blog/">Welcome to My Engineering&nbsp;Blog</a></h3>
-            <span class="tags">
-                <a href="https://leonardchau.com/tag/portfolio/" class="tag">portfolio</a>
-                <a href="https://leonardchau.com/tag/intro/" class="tag">intro</a>
-            </span>
-        </article>
-        <article class="archive-item">
-            <time datetime="2024-12-20T09:00:00-05:00">December 20, 2024</time>
-            <h3><a href="https://leonardchau.com/posts/2024/12/20/open-ended-experiment-tensile-testing-of-acrylic-with-geometric-discontinuities/">Open-Ended Experiment: Tensile Testing of Acrylic with Geometric&nbsp;Discontinuities</a></h3>
-            <span class="tags">
-                <a href="https://leonardchau.com/tag/materials-testing/" class="tag">materials-testing</a>
-                <a href="https://leonardchau.com/tag/mechanical-engineering/" class="tag">mechanical-engineering</a>
-                <a href="https://leonardchau.com/tag/stress-analysis/" class="tag">stress-analysis</a>
-                <a href="https://leonardchau.com/tag/school-project/" class="tag">school-project</a>
-            </span>
-        </article>
-        <article class="archive-item">
-            <time datetime="2024-12-15T10:00:00-05:00">December 15, 2024</time>
-            <h3><a href="https://leonardchau.com/posts/2024/12/15/analog-voltmeter-clock-time-and-environmental-monitor/">Analog Voltmeter Clock - Time and Environmental&nbsp;Monitor</a></h3>
-            <span class="tags">
-                <a href="https://leonardchau.com/tag/arduino/" class="tag">arduino</a>
-                <a href="https://leonardchau.com/tag/electronics/" class="tag">electronics</a>
-                <a href="https://leonardchau.com/tag/embedded-systems/" class="tag">embedded-systems</a>
-                <a href="https://leonardchau.com/tag/sensors/" class="tag">sensors</a>
-                <a href="https://leonardchau.com/tag/3d-printing/" class="tag">3d-printing</a>
-                <a href="https://leonardchau.com/tag/school-project/" class="tag">school-project</a>
-                <a href="https://leonardchau.com/tag/personal-project/" class="tag">personal-project</a>
-            </span>
-        </article>
-        <article class="archive-item">
-            <time datetime="2022-11-29T10:00:00-05:00">November 29, 2022</time>
-            <h3><a href="https://leonardchau.com/posts/2022/11/29/cad-project-self-propelled-wall-leaper/"><span class="caps">CAD</span> Project - Self-Propelled Wall&nbsp;Leaper</a></h3>
-            <span class="tags">
-                <a href="https://leonardchau.com/tag/cad/" class="tag">cad</a>
-                <a href="https://leonardchau.com/tag/design/" class="tag">design</a>
-                <a href="https://leonardchau.com/tag/engineering/" class="tag">engineering</a>
-                <a href="https://leonardchau.com/tag/school-project/" class="tag">school-project</a>
-                <a href="https://leonardchau.com/tag/fusion360/" class="tag">fusion360</a>
-                <a href="https://leonardchau.com/tag/3d-printing/" class="tag">3d-printing</a>
-            </span>
-        </article>
+        {% endfor %}
     </div>
+    {% else %}
+    <p>No archived posts yet.</p>
+    {% endif %}
 </section>
-        </div>
-    </main>
 
-    <footer class="site-footer">
-        <div class="container">
-            <p>© 2025 Leonard Chau. All rights reserved.</p>
-            <ul class="social-links">
-                <li><a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-            </ul>
-        </div>
-    </footer>
-
-    <script src="https://leonardchau.com/site_theme/js/main.js"></script>
-</body>
-</html>

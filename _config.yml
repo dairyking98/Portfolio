@@ -1,0 +1,146 @@
+# Site Configuration
+title: "Leonard Chau - Portfolio & Engineering Blog"
+author: "Leonard Chau"
+description: "Personal portfolio and engineering blog"
+url: "https://leonardchau.com"
+baseurl: ""
+
+# Timezone
+timezone: America/New_York
+
+# Language
+lang: en
+locale: en_US
+
+# Permalinks - Match Pelican structure
+permalink: /posts/:year/:month/:day/:title/
+permalink_defaults: {}
+
+# Collections
+collections:
+  typewriters:
+    output: true
+    permalink: /:collection/:name/
+
+# Pagination
+paginate: 10
+paginate_path: "/page:num/"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+plugins:
+  - jekyll-feed
+  - jekyll-paginate
+  - jekyll-sitemap
+
+# Markdown settings
+kramdown:
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: highlight
+    linenos: true
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+  enable_coderay: false
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - README.md
+  - venv/
+  - .gitignore
+  - .git/
+  - deprecated/
+  - content/
+  - __pycache__/
+  - "*.pyc"
+  - .vscode/
+  - .idea/
+  - "*.xlsx"
+  - import/
+  - local/
+
+# Include static files
+include:
+  - _pages
+
+# Navigation menu
+navigation:
+  - title: Home
+    url: /
+  - title: About
+    url: /about
+  - title: School Projects
+    url: /school-projects
+  - title: Personal Projects
+    url: /personal-projects
+  - title: Typewriters
+    url: /typewriters
+    submenu:
+      - title: Overview
+        url: /typewriters
+      - title: Collection Spreadsheet
+        url: /typewriters/collection
+      - title: Collection Posts
+        url: /typewriters/collection-posts
+      - title: 3D Type Elements
+        url: /typewriters/3d-type-elements
+  - title: Tags
+    url: /tags.html
+  - title: Archives
+    url: /archives.html
+
+# Social links
+social:
+  - name: GitHub
+    url: https://github.com/yourusername
+
+# Typewriter collection settings
+typewriters:
+  spreadsheet_url: ""
+  gallery_url: ""
+  github_3d_elements: ""
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      author: Leonard Chau
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: page
+  - scope:
+      path: ""
+      type: typewriters
+    values:
+      layout: typewriter
+
+# Category and tag settings
+category_dir: category
+tag_dir: tag
+
+# Feed settings
+feed:
+  path: feeds/all.atom.xml
+
+# SASS settings
+sass:
+  style: compressed
+
+# GitHub Pages settings (for deployment)
+github: [metadata]
+
