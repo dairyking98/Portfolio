@@ -1,6 +1,6 @@
 @echo off
 REM Jekyll build script
-REM Builds the site to _site/ directory
+REM Builds the site to local/_site/ directory (NOT root _site/)
 
 echo Building Jekyll site...
 echo.

@@ -1,6 +1,7 @@
 @echo off
 REM Jekyll serve script for local development
 REM Starts Jekyll server with auto-reload on http://localhost:4000
+REM Builds to local/_site/ directory (NOT root _site/)
 
 echo Starting Jekyll server...
 echo.

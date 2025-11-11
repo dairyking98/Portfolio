@@ -106,8 +106,10 @@ Then open http://localhost:4000 (or your custom port) in your browser.
 **Note:** 
 - On Windows: Use `serve.bat` to start the local development server (replaces old `build.py serve` command)
 - The server automatically rebuilds the site when you make changes to files
-- This is the replacement for the old Pelican `build.py serve` command
+- **Local builds go to `local/_site/`** (not root `_site/`) - root stays clean
+- **GitHub Pages builds in root** automatically when you push to GitHub
 - No need to manually build before serving - Jekyll handles it automatically
+- Source HTML files (`index.html`, `tags.html`, etc.) are in root - these are Jekyll source files, not generated artifacts
 
 ## Usage
 
