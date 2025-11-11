@@ -7,6 +7,19 @@ local/
 *.gem
 *.gemspec
 
+# Generated HTML artifacts (Jekyll generates these automatically)
+about/index.html
+author/
+category/
+my-collection/index.html
+personal-projects/index.html
+posts/
+projects/index.html
+school-projects/index.html
+tag/
+typewriters/*/index.html
+typewriters/index.html
+
 # Pelican output (legacy - no longer used)
 *.pid
 *.pyc
